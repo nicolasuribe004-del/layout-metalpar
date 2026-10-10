@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Planta a escala y vista 3D de la Bodega Metalpar – Desafío ESMAX, equipo Uribe–Fiscina.">
+<title>Layout Bodega Metalpar</title>
+<style>*,*::before,*::after{box-sizing:border-box}img{max-width:100%}[hidden]{display:none!important}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ficha técnica de planta — cabecera compacta, plano a escala como pieza central, tablas de respaldo en dos columnas */
+:root {
+  --bg: #F3F5F7; --surface: #FFFFFF; --ink: #16202B; --muted: #5A6675; --line: #D5DCE3;
+  --accent: #D9692B; --accent-2: #B5541F; --steel: #2F5D8A;
+  --z-rec: #CFE1F2; --z-desp: #D3E8CC; --z-prep: #EDE3D1; --z-serv: #E4E8EC; --z-pas: #FBF0C4;
+  --z-a: #F6D2CC; --z-b: #D6DDF3; --z-c: #D7EBD3; --z-pick: #E3D7F1; --dyn: #7E57B8;
+  --lane-r: #8DB3D9; --lane-d: #93C186; --wall: #16202B; --pillar: #16202B; --door: #F3F5F7;
+  --f-display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", Roboto, Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0F151C; --surface: #17202A; --ink: #E6ECF2; --muted: #9AA7B5; --line: #2A3643;
+  --accent: #E8834A; --accent-2: #C96A33; --steel: #7FA9D4;
+  --z-rec: #1E3347; --z-desp: #22371F; --z-prep: #3A3324; --z-serv: #26303A; --z-pas: #3A3519;
+  --z-a: #46282A; --z-b: #252E4A; --z-c: #1F3A24; --z-pick: #322845; --dyn: #9C7BD3;
+  --lane-r: #3E6A94; --lane-d: #3F6E3A; --wall: #E6ECF2; --pillar: #E6ECF2; --door: #0F151C; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0F151C; --surface: #17202A; --ink: #E6ECF2; --muted: #9AA7B5; --line: #2A3643;
+  --accent: #E8834A; --accent-2: #C96A33; --steel: #7FA9D4;
+  --z-rec: #1E3347; --z-desp: #22371F; --z-prep: #3A3324; --z-serv: #26303A; --z-pas: #3A3519;
+  --z-a: #46282A; --z-b: #252E4A; --z-c: #1F3A24; --z-pick: #322845; --dyn: #9C7BD3;
+  --lane-r: #3E6A94; --lane-d: #3F6E3A; --wall: #E6ECF2; --pillar: #E6ECF2; --door: #0F151C; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--f-body); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 48px; display: grid; gap: 28px; }
+header { display: grid; gap: 10px; border-bottom: 2px solid var(--ink); padding-bottom: 18px; }
+.eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+h1 { font: 800 clamp(30px, 5vw, 46px)/1.02 var(--f-display); margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.sub { margin: 0; color: var(--muted); max-width: 70ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 6px; }
+.facts div { display: grid; gap: 2px; }
+.facts b { font: 700 24px/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.facts span { font: 12px/1.2 var(--f-mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.facts .hot b { color: var(--accent); }
+h2 { font: 700 20px/1.2 var(--f-display); margin: 0 0 12px; }
+.plan-box { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px; overflow-x: auto; position: relative; }
+.plan { display: block; width: 100%; min-width: 620px; height: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+.legend i { display: inline-block; width: 14px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: 6px; border: 1px solid var(--line); }
+.hint { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+/* SVG */
+.zone { stroke: var(--line); stroke-width: 1; }
+.z-rec { fill: var(--z-rec) } .z-desp { fill: var(--z-desp) } .z-prep { fill: var(--z-prep) } .z-serv { fill: var(--z-serv) }
+.z-pas { fill: var(--z-pas) } .z-a { fill: var(--z-a) } .z-b { fill: var(--z-b) } .z-c { fill: var(--z-c) } .z-pick { fill: var(--z-pick) }
+.lane-r { fill: var(--lane-r) } .lane-d { fill: var(--lane-d) }
+.rack { stroke: var(--surface); stroke-width: 1; } .r5 { fill: var(--accent) } .r4 { fill: var(--accent-2) }
+.dyn { fill: var(--dyn); } .pillar { fill: var(--pillar) }
+.wall { fill: none; stroke: var(--wall); stroke-width: 5; }
+.door { stroke: var(--door); stroke-width: 7; }
+.arrow { stroke: var(--steel); stroke-width: 3; } .ahp { fill: var(--steel) }
+.dim { stroke: var(--muted); stroke-width: 1.2; } .dim.thin { stroke-width: 1; } .tick { stroke: var(--muted); stroke-width: 1; }
+.rack:hover, .dyn:hover, .zone:hover, .pillar:hover { filter: brightness(1.12); }
+.plan text { fill: var(--ink); font-family: var(--f-body); text-anchor: middle; }
+.t-zone { font-size: 13px; } .t-s { font-size: 11px; } .t-b { font-weight: 600; }
+.lbl text { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+.t-dim { font: 12px var(--f-mono) !important; fill: var(--muted) !important; } .t-xs { font-size: 10.5px !important; }
+.t-line { font: 600 11px var(--f-mono) !important; }
+.t-dyn { font-size: 12px; font-weight: 600; fill: #fff !important; }
+.t-door { font: 700 13px var(--f-display) !important; letter-spacing: .04em; }
+.t-n { font: 800 18px var(--f-display) !important; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font: 12.5px/1.35 var(--f-body);
+  padding: 6px 9px; border-radius: 4px; max-width: 280px; transform: translate(-50%, calc(-100% - 10px)); }
+/* tablas */
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 28px; }
+.grid2 > section, .wrap > * { min-width: 0; }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 600 12px/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); border-bottom: 2px solid var(--ink); }
+td.num, th.num { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.total td { font-weight: 600; border-top: 2px solid var(--ink); }
+.pill { display: inline-block; font: 600 12px/1 var(--f-mono); padding: 4px 7px; border-radius: 3px; }
+.ok { background: color-mix(in srgb, #2E8B57 18%, transparent); color: var(--ink); }
+.bad { background: color-mix(in srgb, #C0392B 20%, transparent); color: var(--ink); }
+.note { font-size: 13.5px; color: var(--muted); max-width: 75ch; margin: 10px 0 0; }
+.v3d { position: relative; height: min(70vh, 560px); min-height: 360px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.v3d canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.v3d-bar { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; flex-wrap: wrap; gap: 6px; z-index: 2; }
+.v3d-bar button, .v3d-bar label { font: 500 13px/1 var(--f-body); background: var(--surface); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 4px; padding: 7px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.v3d-bar button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.v3d-bar button:focus-visible, .v3d-bar input:focus-visible { outline: 2px solid var(--steel); outline-offset: 2px; }
+.v3d-msg { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 14px; }
+footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Desafío ESMAX · GLA1105 Duoc UC · Alternativa 3</div>
+  <h1>Layout Bodega Metalpar</h1>
+  <p class="sub">Planta a escala del galpón de 50 × 40 m con racks selectivos, picking concentrado y flujo de recepción (este) a despacho (oeste). Diseñado con las restricciones oficiales de ESMAX: pasillo mínimo de 2,5 m, elevación de 6 m y 1.800 kg por grúa. Equipo Uribe–Fiscina.</p>
+  <div class="facts">
+    <div class="hot"><b>1.452</b><span>posiciones de pallet</span></div>
+    <div><b>110</b><span>vanos de rack</span></div>
+    <div><b>2.000 m²</b><span>superficie</span></div>
+    <div><b>2,50 m</b><span>pasillo de grúa</span></div>
+    <div><b>87%</b><span>ocupación 2025</span></div>
+  </div>
+</header>
+
+<section>
+  <h2>Planta</h2>
+  <div class="plan-box" id="planbox">
+    <svg viewBox="0 0 1055 1170" role="img" aria-labelledby="plan-t" class="plan">
+<title id="plan-t">Planta a escala de la Bodega Metalpar, 50 por 40 metros</title>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ahp"/></marker></defs>
+<rect class="zone z-serv" x="135.0" y="950.0" width="202.0" height="160.0" data-tip="Oficinas operativas · 10,10 × 8,00 m · 80,8 m²"/>
+<rect class="zone z-desp" x="135.0" y="310.0" width="202.0" height="640.0" data-tip="Staging y despacho · 10,10 × 32,00 m · 323,2 m² · 24 carriles × 3 pallets"/>
+<rect class="zone z-prep" x="135.0" y="110.0" width="202.0" height="200.0" data-tip="Preparación, insumos y embalajes · 10,10 × 10,00 m · 101,0 m²"/>
+<rect class="zone z-pas" x="337.0" y="1080.0" width="494.0" height="30.0" data-tip="Pasillo peatonal · 24,70 × 1,50 m · 37,0 m²"/>
+<rect class="zone z-c" x="337.0" y="876.0" width="494.0" height="204.0" data-tip="Almacenamiento C · 24,70 × 10,20 m · 251,9 m² · 396 posiciones"/>
+<rect class="zone z-b" x="337.0" y="670.0" width="494.0" height="206.0" data-tip="Almacenamiento B · 24,70 × 10,30 m · 254,4 m² · 396 posiciones"/>
+<rect class="zone z-pas" x="337.0" y="590.0" width="494.0" height="80.0" data-tip="Pasillo central E-O · 24,70 × 4,00 m · 98,8 m²"/>
+<rect class="zone z-a" x="337.0" y="248.0" width="494.0" height="342.0" data-tip="Almacenamiento A · 24,70 × 17,10 m · 422,4 m² · 660 posiciones"/>
+<rect class="zone z-pick" x="337.0" y="110.0" width="494.0" height="138.0" data-tip="Zona picking · 24,70 × 6,90 m · 170,4 m²"/>
+<rect class="zone z-serv" x="831.0" y="950.0" width="104.0" height="160.0" data-tip="Devoluciones · 5,20 × 8,00 m · 41,6 m²"/>
+<rect class="zone z-rec" x="831.0" y="390.0" width="104.0" height="560.0" data-tip="Recepción · 5,20 × 28,00 m · 145,6 m² · 20 carriles × 2 pallets"/>
+<rect class="zone z-serv" x="831.0" y="230.0" width="104.0" height="160.0" data-tip="Control y calidad · 5,20 × 8,00 m · 41,6 m²"/>
+<rect class="zone z-serv" x="831.0" y="110.0" width="104.0" height="120.0" data-tip="Equipos y carga de baterías · 5,20 × 6,00 m · 31,2 m²"/>
+<rect class="lane lane-d" x="139.0" y="925.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="903.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="881.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="859.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="837.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="815.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="793.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="771.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="749.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="727.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="705.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="683.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="561.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="539.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="517.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="495.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="473.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="451.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="429.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="407.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="385.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="363.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="341.0" width="72.0" height="20.0"/>
+<rect class="lane lane-d" x="139.0" y="319.0" width="72.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="925.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="903.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="881.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="859.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="837.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="815.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="793.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="771.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="749.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="727.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="705.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="683.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="561.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="539.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="517.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="495.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="473.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="451.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="429.0" width="52.0" height="20.0"/>
+<rect class="lane lane-r" x="881.0" y="407.0" width="52.0" height="20.0"/>
+<rect class="rack r5" x="337.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 1 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 2 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 3 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 4 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 5 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 6 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 1 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 2 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 3 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 4 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 5 · zona A · 5 niveles · 15 posiciones"/>
+<text class="t-line" x="348.0" y="241.0">L1</text>
+<rect class="rack r4" x="409.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<text class="t-line" x="420.0" y="241.0">L2</text>
+<rect class="rack r4" x="435.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<text class="t-line" x="446.0" y="241.0">L3</text>
+<rect class="rack r4" x="507.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<text class="t-line" x="518.0" y="241.0">L4</text>
+<rect class="rack r4" x="541.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<text class="t-line" x="552.0" y="241.0">L5</text>
+<rect class="rack r4" x="613.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<text class="t-line" x="624.0" y="241.0">L6</text>
+<rect class="rack r4" x="639.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<text class="t-line" x="650.0" y="241.0">L7</text>
+<rect class="rack r5" x="711.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 1 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 2 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 3 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 4 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 5 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 6 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 1 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 2 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 3 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 4 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 5 · zona A · 5 niveles · 15 posiciones"/>
+<text class="t-line" x="722.0" y="241.0">L8</text>
+<rect class="rack r5" x="737.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 1 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 2 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 3 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 4 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 5 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 6 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 1 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 2 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 3 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 4 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 5 · zona A · 5 niveles · 15 posiciones"/>
+<text class="t-line" x="748.0" y="241.0">L9</text>
+<rect class="rack r5" x="809.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 1 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 2 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 3 · zona C · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 4 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 5 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 6 · zona B · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 1 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 2 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 3 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 4 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 5 · zona A · 5 niveles · 15 posiciones"/>
+<text class="t-line" x="820.0" y="241.0">L10</text>
+<rect class="dyn" x="337.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 1 · 4 niveles · 12 canales"/>
+<rect class="dyn" x="391.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 2 · 4 niveles · 12 canales"/>
+<rect class="dyn" x="445.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 3 · 4 niveles · 12 canales"/>
+<rect class="dyn" x="499.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 4 · 4 niveles · 12 canales"/>
+<rect class="dyn" x="553.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 5 · 4 niveles · 12 canales"/>
+<rect class="dyn" x="607.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 6 · 4 niveles · 12 canales"/>
+<rect class="dyn" x="661.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 7 · 4 niveles · 12 canales"/>
+<rect class="dyn" x="715.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 8 · 4 niveles · 12 canales"/>
+<rect class="dyn" x="769.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 9 · 4 niveles · 12 canales"/>
+<rect class="pillar" x="135.0" y="1102.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="135.0" y="906.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="135.0" y="706.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="135.0" y="506.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="135.0" y="306.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="135.0" y="110.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="531.0" y="1102.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="531.0" y="906.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="531.0" y="706.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="531.0" y="506.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="531.0" y="306.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="531.0" y="110.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="927.0" y="1102.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="927.0" y="906.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="927.0" y="706.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="927.0" y="506.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="927.0" y="306.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="pillar" x="927.0" y="110.0" width="8.0" height="8.0" data-tip="Pilar 0,40 × 0,40 m"/>
+<rect class="wall" x="135" y="110.0" width="800.0" height="1000.0"/>
+<line class="door" x1="135" y1="670.0" x2="135" y2="590.0"/>
+<line class="arrow" x1="127" y1="630.0" x2="83" y2="630.0" marker-end="url(#ah)"/>
+<text class="t-door" transform="translate(73,630.0) rotate(-90)">Puerta oeste · Despacho</text>
+<line class="door" x1="935.0" y1="670.0" x2="935.0" y2="590.0"/>
+<line class="arrow" x1="987.0" y1="630.0" x2="943.0" y2="630.0" marker-end="url(#ah)"/>
+<text class="t-door" transform="translate(997.0,630.0) rotate(-90)">Puerta este · Recepción</text>
+<g class="lbl"><text class="t-zone t-m" x="236.0" y="1022.0"><tspan x="236.0" dy="0" class="t-b">Oficinas operativas</tspan><tspan x="236.0" dy="1.2em">10,10 × 8,00 m · 80,8 m²</tspan></text></g>
+<g class="lbl"><text class="t-zone t-m" x="236.0" y="630.0" transform="rotate(-90 236.0 630.0)"><tspan x="236.0" dy="0" class="t-b">Staging y despacho</tspan><tspan x="236.0" dy="1.2em">10,10 × 32,00 m · 323,2 m²</tspan><tspan x="236.0" dy="1.2em">24 carriles × 3 pallets</tspan></text></g>
+<g class="lbl"><text class="t-zone t-s" x="236.0" y="202.0"><tspan x="236.0" dy="0" class="t-b">Preparación, insumos y embalajes</tspan><tspan x="236.0" dy="1.2em">10,10 × 10,00 m · 101,0 m²</tspan></text></g>
+<text class="t-zone t-s" x="584.0" y="1099.0"><tspan x="584.0" dy="0" class="t-b">Pasillo peatonal · 1,50 m</tspan></text>
+<g class="lbl"><text class="t-zone t-m" x="584.0" y="970.0"><tspan x="584.0" dy="0" class="t-b">Almacenamiento C</tspan><tspan x="584.0" dy="1.2em">24,70 × 10,20 m · 251,9 m²</tspan><tspan x="584.0" dy="1.2em">396 posiciones</tspan></text></g>
+<g class="lbl"><text class="t-zone t-m" x="584.0" y="765.0"><tspan x="584.0" dy="0" class="t-b">Almacenamiento B</tspan><tspan x="584.0" dy="1.2em">24,70 × 10,30 m · 254,4 m²</tspan><tspan x="584.0" dy="1.2em">396 posiciones</tspan></text></g>
+<text class="t-zone t-s" x="584.0" y="634.0"><tspan x="584.0" dy="0" class="t-b">Pasillo central este–oeste · 4,00 m</tspan></text>
+<g class="lbl"><text class="t-zone t-m" x="584.0" y="411.0"><tspan x="584.0" dy="0" class="t-b">Almacenamiento A</tspan><tspan x="584.0" dy="1.2em">24,70 × 17,10 m · 422,4 m²</tspan><tspan x="584.0" dy="1.2em">660 posiciones</tspan></text></g>
+<g class="lbl"><text class="t-zone t-s" x="883.0" y="1030.0" transform="rotate(-90 883.0 1030.0)"><tspan x="883.0" dy="0" class="t-b">Devoluciones</tspan><tspan x="883.0" dy="1.2em">5,20 × 8,00 m · 41,6 m²</tspan></text></g>
+<g class="lbl"><text class="t-zone t-s" x="883.0" y="670.0" transform="rotate(-90 883.0 670.0)"><tspan x="883.0" dy="0" class="t-b">Recepción</tspan><tspan x="883.0" dy="1.2em">5,20 × 28,00 m · 145,6 m²</tspan><tspan x="883.0" dy="1.2em">20 carriles × 2 pallets</tspan></text></g>
+<g class="lbl"><text class="t-zone t-s" x="883.0" y="310.0" transform="rotate(-90 883.0 310.0)"><tspan x="883.0" dy="0" class="t-b">Control y calidad</tspan><tspan x="883.0" dy="1.2em">5,20 × 8,00 m · 41,6 m²</tspan></text></g>
+<g class="lbl"><text class="t-zone t-s" x="883.0" y="170.0" transform="rotate(-90 883.0 170.0)"><tspan x="883.0" dy="0" class="t-b">Equipos y carga de baterías</tspan><tspan x="883.0" dy="1.2em">5,20 × 6,00 m · 31,2 m²</tspan></text></g>
+<text class="t-zone t-s" x="584.0" y="134.0"><tspan x="584.0" dy="0" class="t-b">Pasillo de picking 2,00 m → preparación</tspan></text>
+<text class="t-zone t-s" x="584.0" y="222.0"><tspan x="584.0" dy="0" class="t-b">Pasillo de reposición 2,50 m</tspan></text>
+<text class="t-dyn" x="584.0" y="178.00000000000006">Rack dinámico · 9 módulos × 2,70 m · 108 canales</text>
+<line class="dim" x1="135" y1="40" x2="935.0" y2="40" marker-start="url(#ah)" marker-end="url(#ah)"/>
+<text class="t-dim" x="535.0" y="35">40,00 m</text>
+<line class="dim thin" x1="135" y1="80" x2="337.0" y2="80"/>
+<line class="tick" x1="135" y1="74" x2="135" y2="86"/>
+<text class="t-dim t-xs" x="236.0" y="74">10,10</text>
+<line class="dim thin" x1="337.0" y1="80" x2="359.0" y2="80"/>
+<line class="tick" x1="337.0" y1="74" x2="337.0" y2="86"/>
+<text class="t-dim t-xs" x="348.0" y="74">1,10</text>
+<line class="dim thin" x1="359.0" y1="80" x2="409.0" y2="80"/>
+<line class="tick" x1="359.0" y1="74" x2="359.0" y2="86"/>
+<text class="t-dim t-xs" x="384.0" y="74">2,50</text>
+<line class="dim thin" x1="409.0" y1="80" x2="457.0" y2="80"/>
+<line class="tick" x1="409.0" y1="74" x2="409.0" y2="86"/>
+<text class="t-dim t-xs" x="433.0" y="74">2,40</text>
+<line class="dim thin" x1="457.0" y1="80" x2="507.0" y2="80"/>
+<line class="tick" x1="457.0" y1="74" x2="457.0" y2="86"/>
+<text class="t-dim t-xs" x="482.0" y="74">2,50</text>
+<line class="dim thin" x1="507.0" y1="80" x2="563.0" y2="80"/>
+<line class="tick" x1="507.0" y1="74" x2="507.0" y2="86"/>
+<text class="t-dim t-xs" x="535.0" y="74">2,80</text>
+<line class="dim thin" x1="563.0" y1="80" x2="613.0" y2="80"/>
+<line class="tick" x1="563.0" y1="74" x2="563.0" y2="86"/>
+<text class="t-dim t-xs" x="588.0" y="74">2,50</text>
+<line class="dim thin" x1="613.0" y1="80" x2="661.0" y2="80"/>
+<line class="tick" x1="613.0" y1="74" x2="613.0" y2="86"/>
+<text class="t-dim t-xs" x="637.0" y="74">2,40</text>
+<line class="dim thin" x1="661.0" y1="80" x2="711.0" y2="80"/>
+<line class="tick" x1="661.0" y1="74" x2="661.0" y2="86"/>
+<text class="t-dim t-xs" x="686.0" y="74">2,50</text>
+<line class="dim thin" x1="711.0" y1="80" x2="759.0" y2="80"/>
+<line class="tick" x1="711.0" y1="74" x2="711.0" y2="86"/>
+<text class="t-dim t-xs" x="735.0" y="74">2,40</text>
+<line class="dim thin" x1="759.0" y1="80" x2="809.0" y2="80"/>
+<line class="tick" x1="759.0" y1="74" x2="759.0" y2="86"/>
+<text class="t-dim t-xs" x="784.0" y="74">2,50</text>
+<line class="dim thin" x1="809.0" y1="80" x2="831.0" y2="80"/>
+<line class="tick" x1="809.0" y1="74" x2="809.0" y2="86"/>
+<text class="t-dim t-xs" x="820.0" y="74">1,10</text>
+<line class="dim thin" x1="831.0" y1="80" x2="935" y2="80"/>
+<line class="tick" x1="831.0" y1="74" x2="831.0" y2="86"/>
+<text class="t-dim t-xs" x="883.0" y="74">5,20</text>
+<line class="tick" x1="935" y1="74" x2="935" y2="86"/>
+<line class="dim" x1="23" y1="1110.0" x2="23" y2="110.0" marker-start="url(#ah)" marker-end="url(#ah)"/>
+<text class="t-dim" transform="translate(17,610.0) rotate(-90)">50,00 m</text>
+<line class="dim thin" x1="1030.0" y1="1110.0" x2="1030.0" y2="1080.0"/>
+<line class="tick" x1="1024.0" y1="1110.0" x2="1036.0" y2="1110.0"/>
+<text class="t-dim t-xs" transform="translate(1046.0,1095.0) rotate(-90)">1,50</text>
+<line class="dim thin" x1="1030.0" y1="1080.0" x2="1030.0" y2="876.0"/>
+<line class="tick" x1="1024.0" y1="1080.0" x2="1036.0" y2="1080.0"/>
+<text class="t-dim t-xs" transform="translate(1046.0,978.0) rotate(-90)">10,20</text>
+<line class="dim thin" x1="1030.0" y1="876.0" x2="1030.0" y2="670.0"/>
+<line class="tick" x1="1024.0" y1="876.0" x2="1036.0" y2="876.0"/>
+<text class="t-dim t-xs" transform="translate(1046.0,773.0) rotate(-90)">10,30</text>
+<line class="dim thin" x1="1030.0" y1="670.0" x2="1030.0" y2="590.0"/>
+<line class="tick" x1="1024.0" y1="670.0" x2="1036.0" y2="670.0"/>
+<text class="t-dim t-xs" transform="translate(1046.0,630.0) rotate(-90)">4,00</text>
+<line class="dim thin" x1="1030.0" y1="590.0" x2="1030.0" y2="247.99999999999997"/>
+<line class="tick" x1="1024.0" y1="590.0" x2="1036.0" y2="590.0"/>
+<text class="t-dim t-xs" transform="translate(1046.0,419.0) rotate(-90)">17,10</text>
+<line class="dim thin" x1="1030.0" y1="247.99999999999997" x2="1030.0" y2="197.99999999999997"/>
+<line class="tick" x1="1024.0" y1="247.99999999999997" x2="1036.0" y2="247.99999999999997"/>
+<text class="t-dim t-xs" transform="translate(1046.0,222.99999999999997) rotate(-90)">2,50</text>
+<line class="dim thin" x1="1030.0" y1="197.99999999999997" x2="1030.0" y2="150.0"/>
+<line class="tick" x1="1024.0" y1="197.99999999999997" x2="1036.0" y2="197.99999999999997"/>
+<text class="t-dim t-xs" transform="translate(1046.0,174.0) rotate(-90)">2,40</text>
+<line class="dim thin" x1="1030.0" y1="150.0" x2="1030.0" y2="110.0"/>
+<line class="tick" x1="1024.0" y1="150.0" x2="1036.0" y2="150.0"/>
+<text class="t-dim t-xs" transform="translate(1046.0,130.0) rotate(-90)">2,00</text>
+<line class="tick" x1="1024.0" y1="110.0" x2="1036.0" y2="110.0"/>
+<line class="arrow" x1="1005.0" y1="70" x2="1005.0" y2="34" marker-end="url(#ah)"/><text class="t-n" x="1005.0" y="90">N</text>
+</svg>
+    <div class="tip" id="tip" hidden></div>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--accent)"></i>Rack 5 niveles (L1, L8, L9, L10)</span>
+    <span><i style="background:var(--accent-2)"></i>Rack 4 niveles (L2 a L7)</span>
+    <span><i style="background:var(--dyn)"></i>Rack dinámico de picking</span>
+    <span><i style="background:var(--lane-r)"></i>Carriles de recepción</span>
+    <span><i style="background:var(--lane-d)"></i>Carriles de despacho</span>
+    <span><i style="background:var(--pillar)"></i>Pilar 0,40 m</span>
+  </div>
+  <p class="hint">Pasa el cursor (o toca) una zona o un vano para ver sus medidas. Cotas en metros.</p>
+</section>
+
+<section>
+  <h2>Vista 3D</h2>
+  <div class="v3d" id="v3d">
+    <div class="v3d-bar">
+      <button type="button" id="b-aerea" class="on">Vista aérea</button>
+      <button type="button" id="b-rec">Desde recepción</button>
+      <button type="button" id="b-pas">Pasillo de racks</button>
+      <label><input type="checkbox" id="c-pal" checked> Pallets</label>
+      <label><input type="checkbox" id="c-mur" checked> Muros</label>
+    </div>
+    <div class="v3d-msg" id="v3d-msg">Cargando vista 3D…</div>
+  </div>
+  <p class="hint">Arrastra para girar, rueda o pellizco para acercar, clic derecho (o dos dedos) para desplazar. Cada pallet ocupa una posición real del rack.</p>
+</section>
+
+<div class="grid2">
+  <section>
+    <h2>Especificación de racks</h2>
+    <div class="tbl"><table>
+      <tr><th>Elemento</th><th>Especificación</th></tr>
+      <tr><td>Vano</td><td>3,40 m entre ejes · larguero 3,30 m · 3 pallets por nivel</td></tr>
+      <tr><td>Fondo</td><td>1,10 m por línea · fila doble 2,40 m · fila central 2,80 m (pilares al medio)</td></tr>
+      <tr><td>Altura de bastidor</td><td>6,00 m</td></tr>
+      <tr><td>L1, L8, L9, L10</td><td>5 niveles · largueros a 1,35 / 2,70 / 4,05 / 5,40 m · pallets ≤ 1,13 m</td></tr>
+      <tr><td>L2 a L7</td><td>4 niveles · largueros a 1,85 / 3,70 / 5,55 m · pallets ≤ 1,69 m</td></tr>
+      <tr><td>Carga por nivel</td><td>3 × 1.200 kg = 3.600 kg</td></tr>
+      <tr><td>Cantidad</td><td>110 vanos · 130 bastidores · 748 largueros</td></tr>
+      <tr><td>Picking</td><td>330 frentes a piso + 9 módulos dinámicos de 2,70 m (108 canales)</td></tr>
+    </table></div>
+  </section>
+  <section>
+    <h2>Capacidad por zona</h2>
+    <div class="tbl"><table>
+      <tr><th>Zona</th><th class="num">Vanos</th><th class="num">Posiciones</th><th>Rotación</th></tr>
+      <tr><td>A</td><td class="num">50</td><td class="num">660</td><td>Alta · junto a picking</td></tr>
+      <tr><td>B</td><td class="num">30</td><td class="num">396</td><td>Media</td></tr>
+      <tr><td>C</td><td class="num">30</td><td class="num">396</td><td>Baja y reserva</td></tr>
+      <tr class="total"><td>Total</td><td class="num">110</td><td class="num">1.452</td><td></td></tr>
+    </table></div>
+    <h2 style="margin-top:26px">Capacidad versus requerimiento</h2>
+    <div class="tbl"><table>
+      <tr><th>Año</th><th class="num">Pallets totales</th><th class="num">En Metalpar</th><th class="num">Ocupación</th></tr>
+      <tr><td>2025</td><td class="num">2.072</td><td class="num">1.260</td><td class="num"><span class="pill ok">87%</span></td></tr>
+      <tr><td>2026</td><td class="num">2.290</td><td class="num">1.478</td><td class="num"><span class="pill bad">102%</span></td></tr>
+      <tr><td>2027</td><td class="num">2.490</td><td class="num">1.678</td><td class="num"><span class="pill bad">116%</span></td></tr>
+      <tr><td>2030</td><td class="num">3.521</td><td class="num">2.709</td><td class="num"><span class="pill bad">187%</span></td></tr>
+    </table></div>
+    <p class="note">Pallets por SKU = stock promedio ÷ unidades por pallet, más el inventario de Lampa y el crecimiento de cada SKU. La bodega actual aporta 812 posiciones; el resto va a Metalpar. Desde 2026 se requiere ampliar capacidad en la bodega actual.</p>
+  </section>
+</div>
+
+<section>
+  <h2>Superficies por zona</h2>
+  <div class="tbl"><table>
+    <tr><th>Zona</th><th class="num">Medidas (m)</th><th class="num">m²</th></tr>
+    <tr><td>Almacenamiento A</td><td class=num>24,70 × 17,10</td><td class=num>422,4</td></tr><tr><td>Staging y despacho</td><td class=num>10,10 × 32,00</td><td class=num>323,2</td></tr><tr><td>Almacenamiento B</td><td class=num>24,70 × 10,30</td><td class=num>254,4</td></tr><tr><td>Almacenamiento C</td><td class=num>24,70 × 10,20</td><td class=num>251,9</td></tr><tr><td>Zona picking</td><td class=num>24,70 × 6,90</td><td class=num>170,4</td></tr><tr><td>Recepción</td><td class=num>5,20 × 28,00</td><td class=num>145,6</td></tr><tr><td>Preparación, insumos y embalajes</td><td class=num>10,10 × 10,00</td><td class=num>101,0</td></tr><tr><td>Pasillo central E-O</td><td class=num>24,70 × 4,00</td><td class=num>98,8</td></tr><tr><td>Oficinas operativas</td><td class=num>10,10 × 8,00</td><td class=num>80,8</td></tr><tr><td>Devoluciones</td><td class=num>5,20 × 8,00</td><td class=num>41,6</td></tr><tr><td>Control y calidad</td><td class=num>5,20 × 8,00</td><td class=num>41,6</td></tr><tr><td>Pasillo peatonal</td><td class=num>24,70 × 1,50</td><td class=num>37,0</td></tr><tr><td>Equipos y carga de baterías</td><td class=num>5,20 × 6,00</td><td class=num>31,2</td></tr>
+    <tr class="total"><td>Total</td><td class="num">50,00 × 40,00</td><td class="num">2.000,0</td></tr>
+  </table></div>
+</section>
+
+<footer>
+  <div>Fuentes: Documento Desafío ESMAX v10 (Elogis, 2026), Tabla 3.1; Tabla de datos requeridos ESMAX versión 07-09-2026; Información Emergente actualizada al 05-10-2026; plano Metalpar Center (VARQ Arquitectos).</div>
+  <div>Diseño conceptual para evaluación académica. Antes de implementar: validar el pasillo de 2,5 m con la ficha técnica de las grúas, la ubicación exacta de las puertas y el cálculo estructural y sísmico de los racks.</div>
+</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(() => {
+  const D = {"W": 40.0, "L": 50.0, "zonas": [{"n": "Oficinas operativas", "x": 0.0, "y": 0.0, "dx": 10.1, "dy": 8.0, "c": "z-serv"}, {"n": "Staging y despacho", "x": 0.0, "y": 8.0, "dx": 10.1, "dy": 32.0, "c": "z-desp"}, {"n": "Preparación, insumos y embalajes", "x": 0.0, "y": 40.0, "dx": 10.1, "dy": 10.0, "c": "z-prep"}, {"n": "Pasillo peatonal", "x": 10.1, "y": 0.0, "dx": 24.7, "dy": 1.5, "c": "z-pas"}, {"n": "Almacenamiento C", "x": 10.1, "y": 1.5, "dx": 24.7, "dy": 10.2, "c": "z-c"}, {"n": "Almacenamiento B", "x": 10.1, "y": 11.7, "dx": 24.7, "dy": 10.3, "c": "z-b"}, {"n": "Pasillo central E-O", "x": 10.1, "y": 22.0, "dx": 24.7, "dy": 4.0, "c": "z-pas"}, {"n": "Almacenamiento A", "x": 10.1, "y": 26.0, "dx": 24.7, "dy": 17.1, "c": "z-a"}, {"n": "Zona picking", "x": 10.1, "y": 43.1, "dx": 24.7, "dy": 6.9, "c": "z-pick"}, {"n": "Devoluciones", "x": 34.8, "y": 0.0, "dx": 5.2, "dy": 8.0, "c": "z-serv"}, {"n": "Recepción", "x": 34.8, "y": 8.0, "dx": 5.2, "dy": 28.0, "c": "z-rec"}, {"n": "Control y calidad", "x": 34.8, "y": 36.0, "dx": 5.2, "dy": 8.0, "c": "z-serv"}, {"n": "Equipos y carga de baterías", "x": 34.8, "y": 44.0, "dx": 5.2, "dy": 6.0, "c": "z-serv"}], "lanes": [{"t": "staging", "x": 0.2, "y": 8.25, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 9.35, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 10.45, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 11.55, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 12.65, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 13.75, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 14.850000000000001, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 15.950000000000001, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 17.05, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 18.150000000000002, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 19.25, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 20.35, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 26.45, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 27.55, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 28.65, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 29.75, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 30.849999999999998, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 31.95, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 33.05, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 34.15, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 35.25, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 36.349999999999994, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 37.449999999999996, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 38.55, "dx": 3.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 8.25, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 9.35, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 10.45, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 11.55, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 12.65, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 13.75, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 14.850000000000001, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 15.950000000000001, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 17.05, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 18.150000000000002, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 19.25, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 20.35, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 26.45, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 27.55, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 28.65, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 29.75, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 30.849999999999998, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 31.95, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 33.05, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 34.15, "dx": 2.6, "dy": 1.0}], "racks": [{"id": "L1", "seg": "sur", "x": 10.1, "y": 1.5, "n": 6, "niv": 5}, {"id": "L1", "seg": "norte", "x": 10.1, "y": 26.0, "n": 5, "niv": 5}, {"id": "L2", "seg": "sur", "x": 13.7, "y": 1.5, "n": 6, "niv": 4}, {"id": "L2", "seg": "norte", "x": 13.7, "y": 26.0, "n": 5, "niv": 4}, {"id": "L3", "seg": "sur", "x": 15.0, "y": 1.5, "n": 6, "niv": 4}, {"id": "L3", "seg": "norte", "x": 15.0, "y": 26.0, "n": 5, "niv": 4}, {"id": "L4", "seg": "sur", "x": 18.6, "y": 1.5, "n": 6, "niv": 4}, {"id": "L4", "seg": "norte", "x": 18.6, "y": 26.0, "n": 5, "niv": 4}, {"id": "L5", "seg": "sur", "x": 20.3, "y": 1.5, "n": 6, "niv": 4}, {"id": "L5", "seg": "norte", "x": 20.3, "y": 26.0, "n": 5, "niv": 4}, {"id": "L6", "seg": "sur", "x": 23.9, "y": 1.5, "n": 6, "niv": 4}, {"id": "L6", "seg": "norte", "x": 23.9, "y": 26.0, "n": 5, "niv": 4}, {"id": "L7", "seg": "sur", "x": 25.2, "y": 1.5, "n": 6, "niv": 4}, {"id": "L7", "seg": "norte", "x": 25.2, "y": 26.0, "n": 5, "niv": 4}, {"id": "L8", "seg": "sur", "x": 28.8, "y": 1.5, "n": 6, "niv": 5}, {"id": "L8", "seg": "norte", "x": 28.8, "y": 26.0, "n": 5, "niv": 5}, {"id": "L9", "seg": "sur", "x": 30.1, "y": 1.5, "n": 6, "niv": 5}, {"id": "L9", "seg": "norte", "x": 30.1, "y": 26.0, "n": 5, "niv": 5}, {"id": "L10", "seg": "sur", "x": 33.7, "y": 1.5, "n": 6, "niv": 5}, {"id": "L10", "seg": "norte", "x": 33.7, "y": 26.0, "n": 5, "niv": 5}], "paso": 3.4, "fondo": 1.1, "h": 6.0, "b5": [1.35, 2.7, 4.05, 5.4], "b4": [1.85, 3.7, 5.55], "dyn": {"x0": 10.1, "y0": 45.6, "dx": 24.3, "dy": 2.4, "modulos": 9, "ancho_mod": 2.7, "niveles": 4, "canales_nivel": 3}, "pilares": [[0, 0], [0, 10], [0, 20], [0, 30], [0, 40], [0, 50], [20, 0], [20, 10], [20, 20], [20, 30], [20, 40], [20, 50], [40, 0], [40, 10], [40, 20], [40, 30], [40, 40], [40, 50]], "puertas": [{"m": "O", "y0": 22.0, "y1": 26.0}, {"m": "E", "y0": 22.0, "y1": 26.0}]};
+  const host = document.getElementById('v3d'), msg = document.getElementById('v3d-msg');
+  if (!window.THREE || !THREE.OrbitControls) { msg.textContent = 'No se pudo cargar el visor 3D en este navegador.'; return; }
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const col = n => new THREE.Color(css(n) || '#888');
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  host.appendChild(renderer.domElement); msg.hidden = true;
+  const scene = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(45, 1, 0.5, 600);
+  const ctl = new THREE.OrbitControls(cam, renderer.domElement);
+  ctl.enableDamping = true; ctl.maxPolarAngle = Math.PI * 0.49; ctl.minDistance = 4; ctl.maxDistance = 160;
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x445566, 0.85));
+  const sun = new THREE.DirectionalLight(0xffffff, 0.55); sun.position.set(-30, 60, 40); scene.add(sun);
+  // coordenadas: x = este, z = -(norte); origen al centro
+  const P = (x, y) => [x - D.W / 2, -(y - D.L / 2)];
+  const mat = c => new THREE.MeshLambertMaterial({ color: c });
+  const box = (w, h, d, m, x, y, z0) => { const g = new THREE.BoxGeometry(w, h, d); const o = new THREE.Mesh(g, m);
+    const [px, pz] = P(x, y); o.position.set(px, z0 + h / 2, pz); scene.add(o); return o; };
+  const themed = [];
+  // piso por zona
+  D.zonas.forEach(z => { const m = mat(col('--' + z.c.replace('z-', 'z-'))); themed.push([m, '--' + z.c]);
+    box(z.dx, 0.04, z.dy, m, z.x + z.dx / 2, z.y + z.dy / 2, 0); });
+  D.lanes.forEach(l => { const v = l.t === 'staging' ? '--lane-d' : '--lane-r'; const m = mat(col(v)); themed.push([m, v]);
+    box(l.dx, 0.06, l.dy, m, l.x + l.dx / 2, l.y + l.dy / 2, 0); });
+  // racks: postes, largueros y pallets con InstancedMesh
+  const dummy = new THREE.Object3D();
+  const posts = [], beams = [], pals5 = [], pals4 = [];
+  D.racks.forEach(r => {
+    const lv = r.niv === 5 ? D.b5 : D.b4, ph = r.niv === 5 ? 1.05 : 1.6;
+    for (let v = 0; v <= r.n; v++) { const yy = r.y + v * D.paso + 0.05;
+      posts.push([r.x + 0.04, yy], [r.x + D.fondo - 0.04, yy]); }
+    for (let v = 0; v < r.n; v++) { const y0 = r.y + v * D.paso + 0.05;
+      lv.forEach(h => { beams.push([r.x + 0.05, y0 + D.paso / 2, h], [r.x + D.fondo - 0.05, y0 + D.paso / 2, h]); });
+      [0].concat(lv).forEach(h => { for (let k = 0; k < 3; k++)
+        (r.niv === 5 ? pals5 : pals4).push([r.x + D.fondo / 2, y0 + 0.125 + k * 1.075 + 0.5, h + (h ? 0.12 : 0.02), ph]); });
+    }
+  });
+  const inst = (geo, m, list, place) => { const im = new THREE.InstancedMesh(geo, m, list.length);
+    list.forEach((p, i) => { place(p); dummy.updateMatrix(); im.setMatrixAt(i, dummy.matrix); }); scene.add(im); return im; };
+  const mPost = mat(col('--steel')); themed.push([mPost, '--steel']);
+  inst(new THREE.BoxGeometry(0.08, D.h, 0.08), mPost, posts, p => { const [x, z] = P(p[0], p[1]); dummy.position.set(x, D.h / 2, z); dummy.scale.set(1, 1, 1); });
+  const mBeam = mat(col('--accent')); themed.push([mBeam, '--accent']);
+  inst(new THREE.BoxGeometry(0.06, 0.12, D.paso - 0.1), mBeam, beams, p => { const [x, z] = P(p[0], p[1]); dummy.position.set(x, p[2], z); });
+  const mPal5 = mat(new THREE.Color('#C9A46A')), mPal4 = mat(new THREE.Color('#8FA3B8'));
+  const palGeo = new THREE.BoxGeometry(1.15, 1, 0.98);
+  const pal = [inst(palGeo, mPal5, pals5, p => { const [x, z] = P(p[0], p[1]); dummy.position.set(x, p[2] + p[3] / 2, z); dummy.scale.set(1, p[3], 1); }),
+               inst(palGeo, mPal4, pals4, p => { const [x, z] = P(p[0], p[1]); dummy.position.set(x, p[2] + p[3] / 2, z); dummy.scale.set(1, p[3], 1); })];
+  dummy.scale.set(1, 1, 1);
+  // rack dinámico
+  const mDyn = mat(col('--dyn')); themed.push([mDyn, '--dyn']);
+  for (let i = 0; i < D.dyn.modulos; i++) box(D.dyn.ancho_mod - 0.08, 2.2, D.dyn.dy, mDyn, D.dyn.x0 + i * D.dyn.ancho_mod + D.dyn.ancho_mod / 2, D.dyn.y0 + D.dyn.dy / 2, 0);
+  // pilares
+  const mPil = mat(col('--pillar')); themed.push([mPil, '--pillar']);
+  D.pilares.forEach(([x, y]) => box(0.4, x === 20 ? 8.5 : 7, 0.4, mPil, Math.min(Math.max(x, 0.2), D.W - 0.2), Math.min(Math.max(y, 0.2), D.L - 0.2), 0));
+  // muros con vanos de puerta
+  const mWall = new THREE.MeshLambertMaterial({ color: 0xB8C2CC, transparent: true, opacity: 0.35 });
+  const walls = [];
+  const wall = (x0, y0, x1, y1) => { const len = Math.hypot(x1 - x0, y1 - y0);
+    const o = box(x0 === x1 ? 0.2 : len, 7, x0 === x1 ? len : 0.2, mWall, (x0 + x1) / 2, (y0 + y1) / 2, 0); walls.push(o); };
+  wall(0, 0, D.W, 0); wall(0, D.L, D.W, D.L); wall(0, 0, 0, 22); wall(0, 26, 0, D.L); wall(D.W, 0, D.W, 22); wall(D.W, 26, D.W, D.L);
+  // ground
+  const gm = mat(col('--bg')); themed.push([gm, '--bg']);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(220, 220), gm); ground.rotation.x = -Math.PI / 2; ground.position.y = -0.02; scene.add(ground);
+
+  const views = { aerea: [[-34, 46, 52], [0, 0, 0]], rec: [[D.W / 2 + 14, 6, 1], [-6, 2, 1]], pas: [P(20, -6).concat([]), null] };
+  const setView = k => {
+    if (k === 'aerea') { cam.position.set(-34, 46, 52); ctl.target.set(0, 0, 0); }
+    if (k === 'rec') { const [x, z] = P(D.W + 10, 24); cam.position.set(x, 5, z); const [tx, tz] = P(20, 24); ctl.target.set(tx, 1.5, tz); }
+    if (k === 'pas') { const [x, z] = P(17.35, 0.6); cam.position.set(x, 1.7, z); const [tx, tz] = P(17.35, 20); ctl.target.set(tx, 2.2, tz); }
+    ctl.update();
+    document.querySelectorAll('.v3d-bar button').forEach(b => b.classList.toggle('on', b.id === 'b-' + k));
+  };
+  document.getElementById('b-aerea').onclick = () => setView('aerea');
+  document.getElementById('b-rec').onclick = () => setView('rec');
+  document.getElementById('b-pas').onclick = () => setView('pas');
+  document.getElementById('c-pal').onchange = e => pal.forEach(m => m.visible = e.target.checked);
+  document.getElementById('c-mur').onchange = e => walls.forEach(w => w.visible = e.target.checked);
+  const applyTheme = () => { scene.background = col('--surface'); themed.forEach(([m, v]) => m.color.copy(col(v))); };
+  applyTheme();
+  try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+        new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] }); } catch (e) {}
+  const resize = () => { const w = host.clientWidth, h = host.clientHeight; renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); };
+  new ResizeObserver(resize).observe(host); resize(); setView('aerea');
+  const loop = () => { ctl.update(); renderer.render(scene, cam); requestAnimationFrame(loop); }; loop();
+})();
+(() => {
+  const box = document.getElementById('planbox'), tip = document.getElementById('tip');
+  const show = (e) => {
+    const el = e.target.closest('[data-tip]');
+    if (!el) { tip.hidden = true; return; }
+    const b = box.getBoundingClientRect(), p = e.touches ? e.touches[0] : e;
+    tip.textContent = el.getAttribute('data-tip');
+    tip.style.left = (p.clientX - b.left + box.scrollLeft) + 'px';
+    tip.style.top = (p.clientY - b.top + box.scrollTop) + 'px';
+    tip.hidden = false;
+  };
+  box.addEventListener('mousemove', show);
+  box.addEventListener('touchstart', show, { passive: true });
+  box.addEventListener('mouseleave', () => { tip.hidden = true; });
+})();
+</script>
+
+</body>
+</html>
