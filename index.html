@@ -13,30 +13,36 @@
 <style>
 /* Layout: ficha técnica de planta — cabecera compacta, plano a escala como pieza central, tablas de respaldo en dos columnas */
 :root {
-  --bg: #F3F5F7; --surface: #FFFFFF; --ink: #16202B; --muted: #5A6675; --line: #D5DCE3;
-  --accent: #D9692B; --accent-2: #B5541F; --steel: #2F5D8A;
-  --z-rec: #CFE1F2; --z-desp: #D3E8CC; --z-prep: #EDE3D1; --z-serv: #E4E8EC; --z-pas: #FBF0C4;
-  --z-a: #F6D2CC; --z-b: #D6DDF3; --z-c: #D7EBD3; --z-pick: #E3D7F1; --dyn: #7E57B8;
-  --lane-r: #8DB3D9; --lane-d: #93C186; --wall: #16202B; --pillar: #16202B; --door: #F3F5F7;
+  --bg: #F3F5F7; --surface: #FFFFFF; --ink: #16202B; --muted: #5A6675; --line: #C9D2DB;
+  --accent: #0D3B78; --accent-2: #0A2E66; --steel: #0D3B78;
+  --rack5: #F5A800; --rack4: #0D3B78; --beam: #F5A800;
+  --z-rec: #5B9FE3; --z-desp: #FFC72C; --z-prep: #F1E6D0; --z-serv: #D9DCDF; --z-pas: #FCEBA0;
+  --z-dev: #E5D5BF; --z-qc: #CFE6F7;
+  --z-a: #D6D9DC; --z-b: #BDD8F3; --z-c: #D6D9DC; --z-pick: #C9DFF4; --dyn: #0A2E66;
+  --lane-r: #2F78C4; --lane-d: #C99A1A; --wall: #16202B; --pillar: #16202B; --door: #F3F5F7;
   --f-display: "Archivo", "Arial Narrow", Arial, sans-serif;
   --f-body: "IBM Plex Sans", "Segoe UI", Roboto, Arial, sans-serif;
   --f-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0F151C; --surface: #17202A; --ink: #E6ECF2; --muted: #9AA7B5; --line: #2A3643;
-  --accent: #E8834A; --accent-2: #C96A33; --steel: #7FA9D4;
-  --z-rec: #1E3347; --z-desp: #22371F; --z-prep: #3A3324; --z-serv: #26303A; --z-pas: #3A3519;
-  --z-a: #46282A; --z-b: #252E4A; --z-c: #1F3A24; --z-pick: #322845; --dyn: #9C7BD3;
-  --lane-r: #3E6A94; --lane-d: #3F6E3A; --wall: #E6ECF2; --pillar: #E6ECF2; --door: #0F151C; color-scheme: dark } }
+  --accent: #F5B82E; --accent-2: #D99A12; --steel: #7FA9D4;
+  --rack5: #E8A200; --rack4: #4F86D1; --beam: #E8A200;
+  --z-rec: #1F4E7E; --z-desp: #6B5413; --z-prep: #3A3324; --z-serv: #2A3038; --z-pas: #4A4220;
+  --z-dev: #3D3326; --z-qc: #1E3A52;
+  --z-a: #2B3036; --z-b: #1F3550; --z-c: #2B3036; --z-pick: #1E3550; --dyn: #2F5FA8;
+  --lane-r: #2E6AA8; --lane-d: #8C6D14; --wall: #E6ECF2; --pillar: #E6ECF2; --door: #0F151C; color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #0F151C; --surface: #17202A; --ink: #E6ECF2; --muted: #9AA7B5; --line: #2A3643;
-  --accent: #E8834A; --accent-2: #C96A33; --steel: #7FA9D4;
-  --z-rec: #1E3347; --z-desp: #22371F; --z-prep: #3A3324; --z-serv: #26303A; --z-pas: #3A3519;
-  --z-a: #46282A; --z-b: #252E4A; --z-c: #1F3A24; --z-pick: #322845; --dyn: #9C7BD3;
-  --lane-r: #3E6A94; --lane-d: #3F6E3A; --wall: #E6ECF2; --pillar: #E6ECF2; --door: #0F151C; color-scheme: dark }
+  --accent: #F5B82E; --accent-2: #D99A12; --steel: #7FA9D4;
+  --rack5: #E8A200; --rack4: #4F86D1; --beam: #E8A200;
+  --z-rec: #1F4E7E; --z-desp: #6B5413; --z-prep: #3A3324; --z-serv: #2A3038; --z-pas: #4A4220;
+  --z-dev: #3D3326; --z-qc: #1E3A52;
+  --z-a: #2B3036; --z-b: #1F3550; --z-c: #2B3036; --z-pick: #1E3550; --dyn: #2F5FA8;
+  --lane-r: #2E6AA8; --lane-d: #8C6D14; --wall: #E6ECF2; --pillar: #E6ECF2; --door: #0F151C; color-scheme: dark }
 body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--f-body); }
-.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 48px; display: grid; gap: 28px; }
-header { display: grid; gap: 10px; border-bottom: 2px solid var(--ink); padding-bottom: 18px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; padding-block: 12px 48px; display: grid; gap: 28px; }
+header { display: grid; gap: 10px; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); padding-block: 22px 18px; }
 .eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 h1 { font: 800 clamp(30px, 5vw, 46px)/1.02 var(--f-display); margin: 0; letter-spacing: -.01em; text-wrap: balance; }
 .sub { margin: 0; color: var(--muted); max-width: 70ch; }
@@ -46,8 +52,8 @@ h1 { font: 800 clamp(30px, 5vw, 46px)/1.02 var(--f-display); margin: 0; letter-s
 .facts span { font: 12px/1.2 var(--f-mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
 .facts .hot b { color: var(--accent); }
 h2 { font: 700 20px/1.2 var(--f-display); margin: 0 0 12px; }
-.plan-box { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px; overflow-x: auto; position: relative; }
-.plan { display: block; width: 100%; min-width: 620px; height: auto; }
+.plan-box { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px; overflow: hidden; position: relative; }
+.plan { display: block; width: 100%; height: min(calc(100svh - 96px), calc((min(100vw, 1180px) - 64px) * 1.109)); min-height: 360px; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); margin-top: 10px; }
 .legend i { display: inline-block; width: 14px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: 6px; border: 1px solid var(--line); }
 .hint { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
@@ -56,7 +62,8 @@ h2 { font: 700 20px/1.2 var(--f-display); margin: 0 0 12px; }
 .z-rec { fill: var(--z-rec) } .z-desp { fill: var(--z-desp) } .z-prep { fill: var(--z-prep) } .z-serv { fill: var(--z-serv) }
 .z-pas { fill: var(--z-pas) } .z-a { fill: var(--z-a) } .z-b { fill: var(--z-b) } .z-c { fill: var(--z-c) } .z-pick { fill: var(--z-pick) }
 .lane-r { fill: var(--lane-r) } .lane-d { fill: var(--lane-d) }
-.rack { stroke: var(--surface); stroke-width: 1; } .r5 { fill: var(--accent) } .r4 { fill: var(--accent-2) }
+.rack { stroke: var(--surface); stroke-width: 1; } .r5 { fill: var(--rack5) } .r4 { fill: var(--rack4) }
+.z-dev { fill: var(--z-dev) } .z-qc { fill: var(--z-qc) }
 .dyn { fill: var(--dyn); } .pillar { fill: var(--pillar) }
 .wall { fill: none; stroke: var(--wall); stroke-width: 5; }
 .door { stroke: var(--door); stroke-width: 7; }
@@ -101,37 +108,23 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
 
 
 <div class="wrap">
-<header>
-  <div class="eyebrow">Desafío ESMAX · GLA1105 Duoc UC · Alternativa 3</div>
-  <h1>Layout Bodega Metalpar</h1>
-  <p class="sub">Planta a escala del galpón de 50 × 40 m con racks selectivos, picking concentrado y flujo de recepción (este) a despacho (oeste). Diseñado con las restricciones oficiales de ESMAX: pasillo mínimo de 2,5 m, elevación de 6 m y 1.800 kg por grúa. Equipo Uribe–Fiscina.</p>
-  <div class="facts">
-    <div class="hot"><b>1.452</b><span>posiciones de pallet</span></div>
-    <div><b>110</b><span>vanos de rack</span></div>
-    <div><b>2.000 m²</b><span>superficie</span></div>
-    <div><b>2,50 m</b><span>pasillo de grúa</span></div>
-    <div><b>87%</b><span>ocupación 2025</span></div>
-  </div>
-</header>
-
-<section>
-  <h2>Planta</h2>
+<section class="hero" aria-label="Planta a escala">
   <div class="plan-box" id="planbox">
     <svg viewBox="0 0 1055 1170" role="img" aria-labelledby="plan-t" class="plan">
 <title id="plan-t">Planta a escala de la Bodega Metalpar, 50 por 40 metros</title>
 <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ahp"/></marker></defs>
-<rect class="zone z-serv" x="135.0" y="950.0" width="202.0" height="160.0" data-tip="Oficinas operativas · 10,10 × 8,00 m · 80,8 m²"/>
+<rect class="zone z-prep" x="135.0" y="950.0" width="202.0" height="160.0" data-tip="Oficinas operativas · 10,10 × 8,00 m · 80,8 m²"/>
 <rect class="zone z-desp" x="135.0" y="310.0" width="202.0" height="640.0" data-tip="Staging y despacho · 10,10 × 32,00 m · 323,2 m² · 24 carriles × 3 pallets"/>
 <rect class="zone z-prep" x="135.0" y="110.0" width="202.0" height="200.0" data-tip="Preparación, insumos y embalajes · 10,10 × 10,00 m · 101,0 m²"/>
-<rect class="zone z-pas" x="337.0" y="1080.0" width="494.0" height="30.0" data-tip="Pasillo peatonal · 24,70 × 1,50 m · 37,0 m²"/>
+<rect class="zone z-pas" x="337.0" y="1080.0" width="494.0" height="30.0" data-tip="Pasillo peatonal · 24,70 × 1,50 m · 37,1 m²"/>
 <rect class="zone z-c" x="337.0" y="876.0" width="494.0" height="204.0" data-tip="Almacenamiento C · 24,70 × 10,20 m · 251,9 m² · 396 posiciones"/>
 <rect class="zone z-b" x="337.0" y="670.0" width="494.0" height="206.0" data-tip="Almacenamiento B · 24,70 × 10,30 m · 254,4 m² · 396 posiciones"/>
 <rect class="zone z-pas" x="337.0" y="590.0" width="494.0" height="80.0" data-tip="Pasillo central E-O · 24,70 × 4,00 m · 98,8 m²"/>
 <rect class="zone z-a" x="337.0" y="248.0" width="494.0" height="342.0" data-tip="Almacenamiento A · 24,70 × 17,10 m · 422,4 m² · 660 posiciones"/>
 <rect class="zone z-pick" x="337.0" y="110.0" width="494.0" height="138.0" data-tip="Zona picking · 24,70 × 6,90 m · 170,4 m²"/>
-<rect class="zone z-serv" x="831.0" y="950.0" width="104.0" height="160.0" data-tip="Devoluciones · 5,20 × 8,00 m · 41,6 m²"/>
+<rect class="zone z-dev" x="831.0" y="950.0" width="104.0" height="160.0" data-tip="Devoluciones · 5,20 × 8,00 m · 41,6 m²"/>
 <rect class="zone z-rec" x="831.0" y="390.0" width="104.0" height="560.0" data-tip="Recepción · 5,20 × 28,00 m · 145,6 m² · 20 carriles × 2 pallets"/>
-<rect class="zone z-serv" x="831.0" y="230.0" width="104.0" height="160.0" data-tip="Control y calidad · 5,20 × 8,00 m · 41,6 m²"/>
+<rect class="zone z-qc" x="831.0" y="230.0" width="104.0" height="160.0" data-tip="Control y calidad · 5,20 × 8,00 m · 41,6 m²"/>
 <rect class="zone z-serv" x="831.0" y="110.0" width="104.0" height="120.0" data-tip="Equipos y carga de baterías · 5,20 × 6,00 m · 31,2 m²"/>
 <rect class="lane lane-d" x="139.0" y="925.0" width="72.0" height="20.0"/>
 <rect class="lane lane-d" x="139.0" y="903.0" width="72.0" height="20.0"/>
@@ -177,125 +170,125 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
 <rect class="lane lane-r" x="881.0" y="451.0" width="52.0" height="20.0"/>
 <rect class="lane lane-r" x="881.0" y="429.0" width="52.0" height="20.0"/>
 <rect class="lane lane-r" x="881.0" y="407.0" width="52.0" height="20.0"/>
-<rect class="rack r5" x="337.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 1 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="337.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 2 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="337.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 3 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="337.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 4 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="337.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 5 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="337.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 6 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="337.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 1 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="337.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 2 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="337.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 3 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="337.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 4 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="337.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L1 · vano 5 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="337.0" y="1011.4" width="22.0" height="67.6" data-tip="Vano L1-01 · zona C · 5 niveles · 15 posiciones · Códigos: L1-01-N1-1 a L1-01-N5-3"/>
+<rect class="rack r5" x="337.0" y="943.4" width="22.0" height="67.6" data-tip="Vano L1-02 · zona C · 5 niveles · 15 posiciones · Códigos: L1-02-N1-1 a L1-02-N5-3"/>
+<rect class="rack r5" x="337.0" y="875.4" width="22.0" height="67.6" data-tip="Vano L1-03 · zona C · 5 niveles · 15 posiciones · Códigos: L1-03-N1-1 a L1-03-N5-3"/>
+<rect class="rack r5" x="337.0" y="807.4" width="22.0" height="67.6" data-tip="Vano L1-04 · zona B · 5 niveles · 15 posiciones · Códigos: L1-04-N1-1 a L1-04-N5-3"/>
+<rect class="rack r5" x="337.0" y="739.4" width="22.0" height="67.6" data-tip="Vano L1-05 · zona B · 5 niveles · 15 posiciones · Códigos: L1-05-N1-1 a L1-05-N5-3"/>
+<rect class="rack r5" x="337.0" y="671.4" width="22.0" height="67.6" data-tip="Vano L1-06 · zona B · 5 niveles · 15 posiciones · Códigos: L1-06-N1-1 a L1-06-N5-3"/>
+<rect class="rack r5" x="337.0" y="521.4" width="22.0" height="67.6" data-tip="Vano L1-07 · zona A · 5 niveles · 15 posiciones · Códigos: L1-07-N1-1 a L1-07-N5-3"/>
+<rect class="rack r5" x="337.0" y="453.4" width="22.0" height="67.6" data-tip="Vano L1-08 · zona A · 5 niveles · 15 posiciones · Códigos: L1-08-N1-1 a L1-08-N5-3"/>
+<rect class="rack r5" x="337.0" y="385.4" width="22.0" height="67.6" data-tip="Vano L1-09 · zona A · 5 niveles · 15 posiciones · Códigos: L1-09-N1-1 a L1-09-N5-3"/>
+<rect class="rack r5" x="337.0" y="317.4" width="22.0" height="67.6" data-tip="Vano L1-10 · zona A · 5 niveles · 15 posiciones · Códigos: L1-10-N1-1 a L1-10-N5-3"/>
+<rect class="rack r5" x="337.0" y="249.4" width="22.0" height="67.6" data-tip="Vano L1-11 · zona A · 5 niveles · 15 posiciones · Códigos: L1-11-N1-1 a L1-11-N5-3"/>
 <text class="t-line" x="348.0" y="241.0">L1</text>
-<rect class="rack r4" x="409.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="409.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="409.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="409.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="409.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="409.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="409.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="409.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="409.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="409.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="409.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L2 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="409.0" y="1011.4" width="22.0" height="67.6" data-tip="Vano L2-01 · zona C · 4 niveles · 12 posiciones · Códigos: L2-01-N1-1 a L2-01-N4-3"/>
+<rect class="rack r4" x="409.0" y="943.4" width="22.0" height="67.6" data-tip="Vano L2-02 · zona C · 4 niveles · 12 posiciones · Códigos: L2-02-N1-1 a L2-02-N4-3"/>
+<rect class="rack r4" x="409.0" y="875.4" width="22.0" height="67.6" data-tip="Vano L2-03 · zona C · 4 niveles · 12 posiciones · Códigos: L2-03-N1-1 a L2-03-N4-3"/>
+<rect class="rack r4" x="409.0" y="807.4" width="22.0" height="67.6" data-tip="Vano L2-04 · zona B · 4 niveles · 12 posiciones · Códigos: L2-04-N1-1 a L2-04-N4-3"/>
+<rect class="rack r4" x="409.0" y="739.4" width="22.0" height="67.6" data-tip="Vano L2-05 · zona B · 4 niveles · 12 posiciones · Códigos: L2-05-N1-1 a L2-05-N4-3"/>
+<rect class="rack r4" x="409.0" y="671.4" width="22.0" height="67.6" data-tip="Vano L2-06 · zona B · 4 niveles · 12 posiciones · Códigos: L2-06-N1-1 a L2-06-N4-3"/>
+<rect class="rack r4" x="409.0" y="521.4" width="22.0" height="67.6" data-tip="Vano L2-07 · zona A · 4 niveles · 12 posiciones · Códigos: L2-07-N1-1 a L2-07-N4-3"/>
+<rect class="rack r4" x="409.0" y="453.4" width="22.0" height="67.6" data-tip="Vano L2-08 · zona A · 4 niveles · 12 posiciones · Códigos: L2-08-N1-1 a L2-08-N4-3"/>
+<rect class="rack r4" x="409.0" y="385.4" width="22.0" height="67.6" data-tip="Vano L2-09 · zona A · 4 niveles · 12 posiciones · Códigos: L2-09-N1-1 a L2-09-N4-3"/>
+<rect class="rack r4" x="409.0" y="317.4" width="22.0" height="67.6" data-tip="Vano L2-10 · zona A · 4 niveles · 12 posiciones · Códigos: L2-10-N1-1 a L2-10-N4-3"/>
+<rect class="rack r4" x="409.0" y="249.4" width="22.0" height="67.6" data-tip="Vano L2-11 · zona A · 4 niveles · 12 posiciones · Códigos: L2-11-N1-1 a L2-11-N4-3"/>
 <text class="t-line" x="420.0" y="241.0">L2</text>
-<rect class="rack r4" x="435.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="435.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="435.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="435.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="435.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="435.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="435.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="435.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="435.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="435.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="435.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L3 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="435.0" y="1011.4" width="22.0" height="67.6" data-tip="Vano L3-01 · zona C · 4 niveles · 12 posiciones · Códigos: L3-01-N1-1 a L3-01-N4-3"/>
+<rect class="rack r4" x="435.0" y="943.4" width="22.0" height="67.6" data-tip="Vano L3-02 · zona C · 4 niveles · 12 posiciones · Códigos: L3-02-N1-1 a L3-02-N4-3"/>
+<rect class="rack r4" x="435.0" y="875.4" width="22.0" height="67.6" data-tip="Vano L3-03 · zona C · 4 niveles · 12 posiciones · Códigos: L3-03-N1-1 a L3-03-N4-3"/>
+<rect class="rack r4" x="435.0" y="807.4" width="22.0" height="67.6" data-tip="Vano L3-04 · zona B · 4 niveles · 12 posiciones · Códigos: L3-04-N1-1 a L3-04-N4-3"/>
+<rect class="rack r4" x="435.0" y="739.4" width="22.0" height="67.6" data-tip="Vano L3-05 · zona B · 4 niveles · 12 posiciones · Códigos: L3-05-N1-1 a L3-05-N4-3"/>
+<rect class="rack r4" x="435.0" y="671.4" width="22.0" height="67.6" data-tip="Vano L3-06 · zona B · 4 niveles · 12 posiciones · Códigos: L3-06-N1-1 a L3-06-N4-3"/>
+<rect class="rack r4" x="435.0" y="521.4" width="22.0" height="67.6" data-tip="Vano L3-07 · zona A · 4 niveles · 12 posiciones · Códigos: L3-07-N1-1 a L3-07-N4-3"/>
+<rect class="rack r4" x="435.0" y="453.4" width="22.0" height="67.6" data-tip="Vano L3-08 · zona A · 4 niveles · 12 posiciones · Códigos: L3-08-N1-1 a L3-08-N4-3"/>
+<rect class="rack r4" x="435.0" y="385.4" width="22.0" height="67.6" data-tip="Vano L3-09 · zona A · 4 niveles · 12 posiciones · Códigos: L3-09-N1-1 a L3-09-N4-3"/>
+<rect class="rack r4" x="435.0" y="317.4" width="22.0" height="67.6" data-tip="Vano L3-10 · zona A · 4 niveles · 12 posiciones · Códigos: L3-10-N1-1 a L3-10-N4-3"/>
+<rect class="rack r4" x="435.0" y="249.4" width="22.0" height="67.6" data-tip="Vano L3-11 · zona A · 4 niveles · 12 posiciones · Códigos: L3-11-N1-1 a L3-11-N4-3"/>
 <text class="t-line" x="446.0" y="241.0">L3</text>
-<rect class="rack r4" x="507.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="507.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="507.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="507.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="507.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="507.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="507.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="507.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="507.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="507.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="507.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L4 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="507.0" y="1011.4" width="22.0" height="67.6" data-tip="Vano L4-01 · zona C · 4 niveles · 12 posiciones · Códigos: L4-01-N1-1 a L4-01-N4-3"/>
+<rect class="rack r4" x="507.0" y="943.4" width="22.0" height="67.6" data-tip="Vano L4-02 · zona C · 4 niveles · 12 posiciones · Códigos: L4-02-N1-1 a L4-02-N4-3"/>
+<rect class="rack r4" x="507.0" y="875.4" width="22.0" height="67.6" data-tip="Vano L4-03 · zona C · 4 niveles · 12 posiciones · Códigos: L4-03-N1-1 a L4-03-N4-3"/>
+<rect class="rack r4" x="507.0" y="807.4" width="22.0" height="67.6" data-tip="Vano L4-04 · zona B · 4 niveles · 12 posiciones · Códigos: L4-04-N1-1 a L4-04-N4-3"/>
+<rect class="rack r4" x="507.0" y="739.4" width="22.0" height="67.6" data-tip="Vano L4-05 · zona B · 4 niveles · 12 posiciones · Códigos: L4-05-N1-1 a L4-05-N4-3"/>
+<rect class="rack r4" x="507.0" y="671.4" width="22.0" height="67.6" data-tip="Vano L4-06 · zona B · 4 niveles · 12 posiciones · Códigos: L4-06-N1-1 a L4-06-N4-3"/>
+<rect class="rack r4" x="507.0" y="521.4" width="22.0" height="67.6" data-tip="Vano L4-07 · zona A · 4 niveles · 12 posiciones · Códigos: L4-07-N1-1 a L4-07-N4-3"/>
+<rect class="rack r4" x="507.0" y="453.4" width="22.0" height="67.6" data-tip="Vano L4-08 · zona A · 4 niveles · 12 posiciones · Códigos: L4-08-N1-1 a L4-08-N4-3"/>
+<rect class="rack r4" x="507.0" y="385.4" width="22.0" height="67.6" data-tip="Vano L4-09 · zona A · 4 niveles · 12 posiciones · Códigos: L4-09-N1-1 a L4-09-N4-3"/>
+<rect class="rack r4" x="507.0" y="317.4" width="22.0" height="67.6" data-tip="Vano L4-10 · zona A · 4 niveles · 12 posiciones · Códigos: L4-10-N1-1 a L4-10-N4-3"/>
+<rect class="rack r4" x="507.0" y="249.4" width="22.0" height="67.6" data-tip="Vano L4-11 · zona A · 4 niveles · 12 posiciones · Códigos: L4-11-N1-1 a L4-11-N4-3"/>
 <text class="t-line" x="518.0" y="241.0">L4</text>
-<rect class="rack r4" x="541.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="541.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="541.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="541.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="541.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="541.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="541.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="541.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="541.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="541.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="541.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L5 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="541.0" y="1011.4" width="22.0" height="67.6" data-tip="Vano L5-01 · zona C · 4 niveles · 12 posiciones · Códigos: L5-01-N1-1 a L5-01-N4-3"/>
+<rect class="rack r4" x="541.0" y="943.4" width="22.0" height="67.6" data-tip="Vano L5-02 · zona C · 4 niveles · 12 posiciones · Códigos: L5-02-N1-1 a L5-02-N4-3"/>
+<rect class="rack r4" x="541.0" y="875.4" width="22.0" height="67.6" data-tip="Vano L5-03 · zona C · 4 niveles · 12 posiciones · Códigos: L5-03-N1-1 a L5-03-N4-3"/>
+<rect class="rack r4" x="541.0" y="807.4" width="22.0" height="67.6" data-tip="Vano L5-04 · zona B · 4 niveles · 12 posiciones · Códigos: L5-04-N1-1 a L5-04-N4-3"/>
+<rect class="rack r4" x="541.0" y="739.4" width="22.0" height="67.6" data-tip="Vano L5-05 · zona B · 4 niveles · 12 posiciones · Códigos: L5-05-N1-1 a L5-05-N4-3"/>
+<rect class="rack r4" x="541.0" y="671.4" width="22.0" height="67.6" data-tip="Vano L5-06 · zona B · 4 niveles · 12 posiciones · Códigos: L5-06-N1-1 a L5-06-N4-3"/>
+<rect class="rack r4" x="541.0" y="521.4" width="22.0" height="67.6" data-tip="Vano L5-07 · zona A · 4 niveles · 12 posiciones · Códigos: L5-07-N1-1 a L5-07-N4-3"/>
+<rect class="rack r4" x="541.0" y="453.4" width="22.0" height="67.6" data-tip="Vano L5-08 · zona A · 4 niveles · 12 posiciones · Códigos: L5-08-N1-1 a L5-08-N4-3"/>
+<rect class="rack r4" x="541.0" y="385.4" width="22.0" height="67.6" data-tip="Vano L5-09 · zona A · 4 niveles · 12 posiciones · Códigos: L5-09-N1-1 a L5-09-N4-3"/>
+<rect class="rack r4" x="541.0" y="317.4" width="22.0" height="67.6" data-tip="Vano L5-10 · zona A · 4 niveles · 12 posiciones · Códigos: L5-10-N1-1 a L5-10-N4-3"/>
+<rect class="rack r4" x="541.0" y="249.4" width="22.0" height="67.6" data-tip="Vano L5-11 · zona A · 4 niveles · 12 posiciones · Códigos: L5-11-N1-1 a L5-11-N4-3"/>
 <text class="t-line" x="552.0" y="241.0">L5</text>
-<rect class="rack r4" x="613.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="613.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="613.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="613.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="613.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="613.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="613.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="613.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="613.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="613.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="613.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L6 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="613.0" y="1011.4" width="22.0" height="67.6" data-tip="Vano L6-01 · zona C · 4 niveles · 12 posiciones · Códigos: L6-01-N1-1 a L6-01-N4-3"/>
+<rect class="rack r4" x="613.0" y="943.4" width="22.0" height="67.6" data-tip="Vano L6-02 · zona C · 4 niveles · 12 posiciones · Códigos: L6-02-N1-1 a L6-02-N4-3"/>
+<rect class="rack r4" x="613.0" y="875.4" width="22.0" height="67.6" data-tip="Vano L6-03 · zona C · 4 niveles · 12 posiciones · Códigos: L6-03-N1-1 a L6-03-N4-3"/>
+<rect class="rack r4" x="613.0" y="807.4" width="22.0" height="67.6" data-tip="Vano L6-04 · zona B · 4 niveles · 12 posiciones · Códigos: L6-04-N1-1 a L6-04-N4-3"/>
+<rect class="rack r4" x="613.0" y="739.4" width="22.0" height="67.6" data-tip="Vano L6-05 · zona B · 4 niveles · 12 posiciones · Códigos: L6-05-N1-1 a L6-05-N4-3"/>
+<rect class="rack r4" x="613.0" y="671.4" width="22.0" height="67.6" data-tip="Vano L6-06 · zona B · 4 niveles · 12 posiciones · Códigos: L6-06-N1-1 a L6-06-N4-3"/>
+<rect class="rack r4" x="613.0" y="521.4" width="22.0" height="67.6" data-tip="Vano L6-07 · zona A · 4 niveles · 12 posiciones · Códigos: L6-07-N1-1 a L6-07-N4-3"/>
+<rect class="rack r4" x="613.0" y="453.4" width="22.0" height="67.6" data-tip="Vano L6-08 · zona A · 4 niveles · 12 posiciones · Códigos: L6-08-N1-1 a L6-08-N4-3"/>
+<rect class="rack r4" x="613.0" y="385.4" width="22.0" height="67.6" data-tip="Vano L6-09 · zona A · 4 niveles · 12 posiciones · Códigos: L6-09-N1-1 a L6-09-N4-3"/>
+<rect class="rack r4" x="613.0" y="317.4" width="22.0" height="67.6" data-tip="Vano L6-10 · zona A · 4 niveles · 12 posiciones · Códigos: L6-10-N1-1 a L6-10-N4-3"/>
+<rect class="rack r4" x="613.0" y="249.4" width="22.0" height="67.6" data-tip="Vano L6-11 · zona A · 4 niveles · 12 posiciones · Códigos: L6-11-N1-1 a L6-11-N4-3"/>
 <text class="t-line" x="624.0" y="241.0">L6</text>
-<rect class="rack r4" x="639.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 1 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="639.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 2 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="639.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 3 · zona C · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="639.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 4 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="639.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 5 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="639.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 6 · zona B · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="639.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 1 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="639.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 2 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="639.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 3 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="639.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 4 · zona A · 4 niveles · 12 posiciones"/>
-<rect class="rack r4" x="639.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L7 · vano 5 · zona A · 4 niveles · 12 posiciones"/>
+<rect class="rack r4" x="639.0" y="1011.4" width="22.0" height="67.6" data-tip="Vano L7-01 · zona C · 4 niveles · 12 posiciones · Códigos: L7-01-N1-1 a L7-01-N4-3"/>
+<rect class="rack r4" x="639.0" y="943.4" width="22.0" height="67.6" data-tip="Vano L7-02 · zona C · 4 niveles · 12 posiciones · Códigos: L7-02-N1-1 a L7-02-N4-3"/>
+<rect class="rack r4" x="639.0" y="875.4" width="22.0" height="67.6" data-tip="Vano L7-03 · zona C · 4 niveles · 12 posiciones · Códigos: L7-03-N1-1 a L7-03-N4-3"/>
+<rect class="rack r4" x="639.0" y="807.4" width="22.0" height="67.6" data-tip="Vano L7-04 · zona B · 4 niveles · 12 posiciones · Códigos: L7-04-N1-1 a L7-04-N4-3"/>
+<rect class="rack r4" x="639.0" y="739.4" width="22.0" height="67.6" data-tip="Vano L7-05 · zona B · 4 niveles · 12 posiciones · Códigos: L7-05-N1-1 a L7-05-N4-3"/>
+<rect class="rack r4" x="639.0" y="671.4" width="22.0" height="67.6" data-tip="Vano L7-06 · zona B · 4 niveles · 12 posiciones · Códigos: L7-06-N1-1 a L7-06-N4-3"/>
+<rect class="rack r4" x="639.0" y="521.4" width="22.0" height="67.6" data-tip="Vano L7-07 · zona A · 4 niveles · 12 posiciones · Códigos: L7-07-N1-1 a L7-07-N4-3"/>
+<rect class="rack r4" x="639.0" y="453.4" width="22.0" height="67.6" data-tip="Vano L7-08 · zona A · 4 niveles · 12 posiciones · Códigos: L7-08-N1-1 a L7-08-N4-3"/>
+<rect class="rack r4" x="639.0" y="385.4" width="22.0" height="67.6" data-tip="Vano L7-09 · zona A · 4 niveles · 12 posiciones · Códigos: L7-09-N1-1 a L7-09-N4-3"/>
+<rect class="rack r4" x="639.0" y="317.4" width="22.0" height="67.6" data-tip="Vano L7-10 · zona A · 4 niveles · 12 posiciones · Códigos: L7-10-N1-1 a L7-10-N4-3"/>
+<rect class="rack r4" x="639.0" y="249.4" width="22.0" height="67.6" data-tip="Vano L7-11 · zona A · 4 niveles · 12 posiciones · Códigos: L7-11-N1-1 a L7-11-N4-3"/>
 <text class="t-line" x="650.0" y="241.0">L7</text>
-<rect class="rack r5" x="711.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 1 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="711.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 2 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="711.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 3 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="711.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 4 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="711.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 5 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="711.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 6 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="711.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 1 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="711.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 2 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="711.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 3 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="711.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 4 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="711.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L8 · vano 5 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="711.0" y="1011.4" width="22.0" height="67.6" data-tip="Vano L8-01 · zona C · 5 niveles · 15 posiciones · Códigos: L8-01-N1-1 a L8-01-N5-3"/>
+<rect class="rack r5" x="711.0" y="943.4" width="22.0" height="67.6" data-tip="Vano L8-02 · zona C · 5 niveles · 15 posiciones · Códigos: L8-02-N1-1 a L8-02-N5-3"/>
+<rect class="rack r5" x="711.0" y="875.4" width="22.0" height="67.6" data-tip="Vano L8-03 · zona C · 5 niveles · 15 posiciones · Códigos: L8-03-N1-1 a L8-03-N5-3"/>
+<rect class="rack r5" x="711.0" y="807.4" width="22.0" height="67.6" data-tip="Vano L8-04 · zona B · 5 niveles · 15 posiciones · Códigos: L8-04-N1-1 a L8-04-N5-3"/>
+<rect class="rack r5" x="711.0" y="739.4" width="22.0" height="67.6" data-tip="Vano L8-05 · zona B · 5 niveles · 15 posiciones · Códigos: L8-05-N1-1 a L8-05-N5-3"/>
+<rect class="rack r5" x="711.0" y="671.4" width="22.0" height="67.6" data-tip="Vano L8-06 · zona B · 5 niveles · 15 posiciones · Códigos: L8-06-N1-1 a L8-06-N5-3"/>
+<rect class="rack r5" x="711.0" y="521.4" width="22.0" height="67.6" data-tip="Vano L8-07 · zona A · 5 niveles · 15 posiciones · Códigos: L8-07-N1-1 a L8-07-N5-3"/>
+<rect class="rack r5" x="711.0" y="453.4" width="22.0" height="67.6" data-tip="Vano L8-08 · zona A · 5 niveles · 15 posiciones · Códigos: L8-08-N1-1 a L8-08-N5-3"/>
+<rect class="rack r5" x="711.0" y="385.4" width="22.0" height="67.6" data-tip="Vano L8-09 · zona A · 5 niveles · 15 posiciones · Códigos: L8-09-N1-1 a L8-09-N5-3"/>
+<rect class="rack r5" x="711.0" y="317.4" width="22.0" height="67.6" data-tip="Vano L8-10 · zona A · 5 niveles · 15 posiciones · Códigos: L8-10-N1-1 a L8-10-N5-3"/>
+<rect class="rack r5" x="711.0" y="249.4" width="22.0" height="67.6" data-tip="Vano L8-11 · zona A · 5 niveles · 15 posiciones · Códigos: L8-11-N1-1 a L8-11-N5-3"/>
 <text class="t-line" x="722.0" y="241.0">L8</text>
-<rect class="rack r5" x="737.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 1 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="737.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 2 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="737.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 3 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="737.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 4 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="737.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 5 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="737.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 6 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="737.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 1 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="737.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 2 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="737.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 3 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="737.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 4 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="737.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L9 · vano 5 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="737.0" y="1011.4" width="22.0" height="67.6" data-tip="Vano L9-01 · zona C · 5 niveles · 15 posiciones · Códigos: L9-01-N1-1 a L9-01-N5-3"/>
+<rect class="rack r5" x="737.0" y="943.4" width="22.0" height="67.6" data-tip="Vano L9-02 · zona C · 5 niveles · 15 posiciones · Códigos: L9-02-N1-1 a L9-02-N5-3"/>
+<rect class="rack r5" x="737.0" y="875.4" width="22.0" height="67.6" data-tip="Vano L9-03 · zona C · 5 niveles · 15 posiciones · Códigos: L9-03-N1-1 a L9-03-N5-3"/>
+<rect class="rack r5" x="737.0" y="807.4" width="22.0" height="67.6" data-tip="Vano L9-04 · zona B · 5 niveles · 15 posiciones · Códigos: L9-04-N1-1 a L9-04-N5-3"/>
+<rect class="rack r5" x="737.0" y="739.4" width="22.0" height="67.6" data-tip="Vano L9-05 · zona B · 5 niveles · 15 posiciones · Códigos: L9-05-N1-1 a L9-05-N5-3"/>
+<rect class="rack r5" x="737.0" y="671.4" width="22.0" height="67.6" data-tip="Vano L9-06 · zona B · 5 niveles · 15 posiciones · Códigos: L9-06-N1-1 a L9-06-N5-3"/>
+<rect class="rack r5" x="737.0" y="521.4" width="22.0" height="67.6" data-tip="Vano L9-07 · zona A · 5 niveles · 15 posiciones · Códigos: L9-07-N1-1 a L9-07-N5-3"/>
+<rect class="rack r5" x="737.0" y="453.4" width="22.0" height="67.6" data-tip="Vano L9-08 · zona A · 5 niveles · 15 posiciones · Códigos: L9-08-N1-1 a L9-08-N5-3"/>
+<rect class="rack r5" x="737.0" y="385.4" width="22.0" height="67.6" data-tip="Vano L9-09 · zona A · 5 niveles · 15 posiciones · Códigos: L9-09-N1-1 a L9-09-N5-3"/>
+<rect class="rack r5" x="737.0" y="317.4" width="22.0" height="67.6" data-tip="Vano L9-10 · zona A · 5 niveles · 15 posiciones · Códigos: L9-10-N1-1 a L9-10-N5-3"/>
+<rect class="rack r5" x="737.0" y="249.4" width="22.0" height="67.6" data-tip="Vano L9-11 · zona A · 5 niveles · 15 posiciones · Códigos: L9-11-N1-1 a L9-11-N5-3"/>
 <text class="t-line" x="748.0" y="241.0">L9</text>
-<rect class="rack r5" x="809.0" y="1011.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 1 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="809.0" y="943.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 2 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="809.0" y="875.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 3 · zona C · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="809.0" y="807.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 4 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="809.0" y="739.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 5 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="809.0" y="671.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 6 · zona B · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="809.0" y="521.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 1 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="809.0" y="453.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 2 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="809.0" y="385.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 3 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="809.0" y="317.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 4 · zona A · 5 niveles · 15 posiciones"/>
-<rect class="rack r5" x="809.0" y="249.4" width="22.0" height="67.6" data-tip="Rack L10 · vano 5 · zona A · 5 niveles · 15 posiciones"/>
+<rect class="rack r5" x="809.0" y="1011.4" width="22.0" height="67.6" data-tip="Vano L10-01 · zona C · 5 niveles · 15 posiciones · Códigos: L10-01-N1-1 a L10-01-N5-3"/>
+<rect class="rack r5" x="809.0" y="943.4" width="22.0" height="67.6" data-tip="Vano L10-02 · zona C · 5 niveles · 15 posiciones · Códigos: L10-02-N1-1 a L10-02-N5-3"/>
+<rect class="rack r5" x="809.0" y="875.4" width="22.0" height="67.6" data-tip="Vano L10-03 · zona C · 5 niveles · 15 posiciones · Códigos: L10-03-N1-1 a L10-03-N5-3"/>
+<rect class="rack r5" x="809.0" y="807.4" width="22.0" height="67.6" data-tip="Vano L10-04 · zona B · 5 niveles · 15 posiciones · Códigos: L10-04-N1-1 a L10-04-N5-3"/>
+<rect class="rack r5" x="809.0" y="739.4" width="22.0" height="67.6" data-tip="Vano L10-05 · zona B · 5 niveles · 15 posiciones · Códigos: L10-05-N1-1 a L10-05-N5-3"/>
+<rect class="rack r5" x="809.0" y="671.4" width="22.0" height="67.6" data-tip="Vano L10-06 · zona B · 5 niveles · 15 posiciones · Códigos: L10-06-N1-1 a L10-06-N5-3"/>
+<rect class="rack r5" x="809.0" y="521.4" width="22.0" height="67.6" data-tip="Vano L10-07 · zona A · 5 niveles · 15 posiciones · Códigos: L10-07-N1-1 a L10-07-N5-3"/>
+<rect class="rack r5" x="809.0" y="453.4" width="22.0" height="67.6" data-tip="Vano L10-08 · zona A · 5 niveles · 15 posiciones · Códigos: L10-08-N1-1 a L10-08-N5-3"/>
+<rect class="rack r5" x="809.0" y="385.4" width="22.0" height="67.6" data-tip="Vano L10-09 · zona A · 5 niveles · 15 posiciones · Códigos: L10-09-N1-1 a L10-09-N5-3"/>
+<rect class="rack r5" x="809.0" y="317.4" width="22.0" height="67.6" data-tip="Vano L10-10 · zona A · 5 niveles · 15 posiciones · Códigos: L10-10-N1-1 a L10-10-N5-3"/>
+<rect class="rack r5" x="809.0" y="249.4" width="22.0" height="67.6" data-tip="Vano L10-11 · zona A · 5 niveles · 15 posiciones · Códigos: L10-11-N1-1 a L10-11-N5-3"/>
 <text class="t-line" x="820.0" y="241.0">L10</text>
 <rect class="dyn" x="337.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 1 · 4 niveles · 12 canales"/>
 <rect class="dyn" x="391.8" y="150.0" width="52.4" height="48.0" data-tip="Rack dinámico de picking · módulo 2 · 4 niveles · 12 canales"/>
@@ -420,18 +413,19 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
     <div class="tip" id="tip" hidden></div>
   </div>
   <div class="legend">
-    <span><i style="background:var(--accent)"></i>Rack 5 niveles (L1, L8, L9, L10)</span>
-    <span><i style="background:var(--accent-2)"></i>Rack 4 niveles (L2 a L7)</span>
+    <span><i style="background:var(--rack5)"></i>Rack 5 niveles (L1, L8, L9, L10)</span>
+    <span><i style="background:var(--rack4)"></i>Rack 4 niveles (L2 a L7)</span>
     <span><i style="background:var(--dyn)"></i>Rack dinámico de picking</span>
     <span><i style="background:var(--lane-r)"></i>Carriles de recepción</span>
     <span><i style="background:var(--lane-d)"></i>Carriles de despacho</span>
+    <span><i style="background:var(--z-a)"></i>Zonas A y C</span>
+    <span><i style="background:var(--z-b)"></i>Zona B</span>
     <span><i style="background:var(--pillar)"></i>Pilar 0,40 m</span>
   </div>
-  <p class="hint">Pasa el cursor (o toca) una zona o un vano para ver sus medidas. Cotas en metros.</p>
+  <p class="hint">Pasa el cursor (o toca) una zona o un vano para ver sus medidas y su código de ubicación. Cotas en metros.</p>
 </section>
 
-<section>
-  <h2>Vista 3D</h2>
+<section aria-label="Vista 3D">
   <div class="v3d" id="v3d">
     <div class="v3d-bar">
       <button type="button" id="b-aerea" class="on">Vista aérea</button>
@@ -444,6 +438,21 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
   </div>
   <p class="hint">Arrastra para girar, rueda o pellizco para acercar, clic derecho (o dos dedos) para desplazar. Cada pallet ocupa una posición real del rack.</p>
 </section>
+
+<header>
+  <div class="eyebrow">Desafío ESMAX · GLA1105 Duoc UC · Alternativa 3</div>
+  <h1>Layout Bodega Metalpar</h1>
+  <p class="sub">Planta a escala del galpón de 50 × 40 m con racks selectivos, picking concentrado y flujo de recepción (este) a despacho (oeste). Diseñado con las restricciones oficiales de ESMAX: pasillo mínimo de 2,5 m, elevación de 6 m y 1.800 kg por grúa. Equipo Uribe–Fiscina.</p>
+  <div class="facts">
+    <div class="hot"><b>1.452</b><span>posiciones de pallet</span></div>
+    <div><b>110</b><span>vanos de rack</span></div>
+    <div><b>2.000 m²</b><span>superficie</span></div>
+    <div><b>2,50 m</b><span>pasillo de grúa</span></div>
+    <div><b>87%</b><span>ocupación 2025</span></div>
+  </div>
+</header>
+
+
 
 <div class="grid2">
   <section>
@@ -458,6 +467,7 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
       <tr><td>Carga por nivel</td><td>3 × 1.200 kg = 3.600 kg</td></tr>
       <tr><td>Cantidad</td><td>110 vanos · 130 bastidores · 748 largueros</td></tr>
       <tr><td>Picking</td><td>330 frentes a piso + 9 módulos dinámicos de 2,70 m (108 canales)</td></tr>
+      <tr><td>Código de ubicación</td><td>Línea-vano-nivel-posición, por ejemplo L3-07-N2-1 (línea 3, vano 7 contado de sur a norte, nivel 2, posición 1). Cada posición lleva una etiqueta de código de barras que se registra en SAP.</td></tr>
     </table></div>
   </section>
   <section>
@@ -485,7 +495,7 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
   <h2>Superficies por zona</h2>
   <div class="tbl"><table>
     <tr><th>Zona</th><th class="num">Medidas (m)</th><th class="num">m²</th></tr>
-    <tr><td>Almacenamiento A</td><td class=num>24,70 × 17,10</td><td class=num>422,4</td></tr><tr><td>Staging y despacho</td><td class=num>10,10 × 32,00</td><td class=num>323,2</td></tr><tr><td>Almacenamiento B</td><td class=num>24,70 × 10,30</td><td class=num>254,4</td></tr><tr><td>Almacenamiento C</td><td class=num>24,70 × 10,20</td><td class=num>251,9</td></tr><tr><td>Zona picking</td><td class=num>24,70 × 6,90</td><td class=num>170,4</td></tr><tr><td>Recepción</td><td class=num>5,20 × 28,00</td><td class=num>145,6</td></tr><tr><td>Preparación, insumos y embalajes</td><td class=num>10,10 × 10,00</td><td class=num>101,0</td></tr><tr><td>Pasillo central E-O</td><td class=num>24,70 × 4,00</td><td class=num>98,8</td></tr><tr><td>Oficinas operativas</td><td class=num>10,10 × 8,00</td><td class=num>80,8</td></tr><tr><td>Devoluciones</td><td class=num>5,20 × 8,00</td><td class=num>41,6</td></tr><tr><td>Control y calidad</td><td class=num>5,20 × 8,00</td><td class=num>41,6</td></tr><tr><td>Pasillo peatonal</td><td class=num>24,70 × 1,50</td><td class=num>37,0</td></tr><tr><td>Equipos y carga de baterías</td><td class=num>5,20 × 6,00</td><td class=num>31,2</td></tr>
+    <tr><td>Almacenamiento A</td><td class=num>24,70 × 17,10</td><td class=num>422,4</td></tr><tr><td>Staging y despacho</td><td class=num>10,10 × 32,00</td><td class=num>323,2</td></tr><tr><td>Almacenamiento B</td><td class=num>24,70 × 10,30</td><td class=num>254,4</td></tr><tr><td>Almacenamiento C</td><td class=num>24,70 × 10,20</td><td class=num>251,9</td></tr><tr><td>Zona picking</td><td class=num>24,70 × 6,90</td><td class=num>170,4</td></tr><tr><td>Recepción</td><td class=num>5,20 × 28,00</td><td class=num>145,6</td></tr><tr><td>Preparación, insumos y embalajes</td><td class=num>10,10 × 10,00</td><td class=num>101,0</td></tr><tr><td>Pasillo central E-O</td><td class=num>24,70 × 4,00</td><td class=num>98,8</td></tr><tr><td>Oficinas operativas</td><td class=num>10,10 × 8,00</td><td class=num>80,8</td></tr><tr><td>Devoluciones</td><td class=num>5,20 × 8,00</td><td class=num>41,6</td></tr><tr><td>Control y calidad</td><td class=num>5,20 × 8,00</td><td class=num>41,6</td></tr><tr><td>Pasillo peatonal</td><td class=num>24,70 × 1,50</td><td class=num>37,1</td></tr><tr><td>Equipos y carga de baterías</td><td class=num>5,20 × 6,00</td><td class=num>31,2</td></tr>
     <tr class="total"><td>Total</td><td class="num">50,00 × 40,00</td><td class="num">2.000,0</td></tr>
   </table></div>
 </section>
@@ -500,7 +510,7 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 (() => {
-  const D = {"W": 40.0, "L": 50.0, "zonas": [{"n": "Oficinas operativas", "x": 0.0, "y": 0.0, "dx": 10.1, "dy": 8.0, "c": "z-serv"}, {"n": "Staging y despacho", "x": 0.0, "y": 8.0, "dx": 10.1, "dy": 32.0, "c": "z-desp"}, {"n": "Preparación, insumos y embalajes", "x": 0.0, "y": 40.0, "dx": 10.1, "dy": 10.0, "c": "z-prep"}, {"n": "Pasillo peatonal", "x": 10.1, "y": 0.0, "dx": 24.7, "dy": 1.5, "c": "z-pas"}, {"n": "Almacenamiento C", "x": 10.1, "y": 1.5, "dx": 24.7, "dy": 10.2, "c": "z-c"}, {"n": "Almacenamiento B", "x": 10.1, "y": 11.7, "dx": 24.7, "dy": 10.3, "c": "z-b"}, {"n": "Pasillo central E-O", "x": 10.1, "y": 22.0, "dx": 24.7, "dy": 4.0, "c": "z-pas"}, {"n": "Almacenamiento A", "x": 10.1, "y": 26.0, "dx": 24.7, "dy": 17.1, "c": "z-a"}, {"n": "Zona picking", "x": 10.1, "y": 43.1, "dx": 24.7, "dy": 6.9, "c": "z-pick"}, {"n": "Devoluciones", "x": 34.8, "y": 0.0, "dx": 5.2, "dy": 8.0, "c": "z-serv"}, {"n": "Recepción", "x": 34.8, "y": 8.0, "dx": 5.2, "dy": 28.0, "c": "z-rec"}, {"n": "Control y calidad", "x": 34.8, "y": 36.0, "dx": 5.2, "dy": 8.0, "c": "z-serv"}, {"n": "Equipos y carga de baterías", "x": 34.8, "y": 44.0, "dx": 5.2, "dy": 6.0, "c": "z-serv"}], "lanes": [{"t": "staging", "x": 0.2, "y": 8.25, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 9.35, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 10.45, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 11.55, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 12.65, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 13.75, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 14.850000000000001, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 15.950000000000001, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 17.05, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 18.150000000000002, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 19.25, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 20.35, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 26.45, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 27.55, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 28.65, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 29.75, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 30.849999999999998, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 31.95, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 33.05, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 34.15, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 35.25, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 36.349999999999994, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 37.449999999999996, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 38.55, "dx": 3.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 8.25, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 9.35, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 10.45, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 11.55, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 12.65, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 13.75, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 14.850000000000001, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 15.950000000000001, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 17.05, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 18.150000000000002, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 19.25, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 20.35, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 26.45, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 27.55, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 28.65, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 29.75, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 30.849999999999998, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 31.95, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 33.05, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 34.15, "dx": 2.6, "dy": 1.0}], "racks": [{"id": "L1", "seg": "sur", "x": 10.1, "y": 1.5, "n": 6, "niv": 5}, {"id": "L1", "seg": "norte", "x": 10.1, "y": 26.0, "n": 5, "niv": 5}, {"id": "L2", "seg": "sur", "x": 13.7, "y": 1.5, "n": 6, "niv": 4}, {"id": "L2", "seg": "norte", "x": 13.7, "y": 26.0, "n": 5, "niv": 4}, {"id": "L3", "seg": "sur", "x": 15.0, "y": 1.5, "n": 6, "niv": 4}, {"id": "L3", "seg": "norte", "x": 15.0, "y": 26.0, "n": 5, "niv": 4}, {"id": "L4", "seg": "sur", "x": 18.6, "y": 1.5, "n": 6, "niv": 4}, {"id": "L4", "seg": "norte", "x": 18.6, "y": 26.0, "n": 5, "niv": 4}, {"id": "L5", "seg": "sur", "x": 20.3, "y": 1.5, "n": 6, "niv": 4}, {"id": "L5", "seg": "norte", "x": 20.3, "y": 26.0, "n": 5, "niv": 4}, {"id": "L6", "seg": "sur", "x": 23.9, "y": 1.5, "n": 6, "niv": 4}, {"id": "L6", "seg": "norte", "x": 23.9, "y": 26.0, "n": 5, "niv": 4}, {"id": "L7", "seg": "sur", "x": 25.2, "y": 1.5, "n": 6, "niv": 4}, {"id": "L7", "seg": "norte", "x": 25.2, "y": 26.0, "n": 5, "niv": 4}, {"id": "L8", "seg": "sur", "x": 28.8, "y": 1.5, "n": 6, "niv": 5}, {"id": "L8", "seg": "norte", "x": 28.8, "y": 26.0, "n": 5, "niv": 5}, {"id": "L9", "seg": "sur", "x": 30.1, "y": 1.5, "n": 6, "niv": 5}, {"id": "L9", "seg": "norte", "x": 30.1, "y": 26.0, "n": 5, "niv": 5}, {"id": "L10", "seg": "sur", "x": 33.7, "y": 1.5, "n": 6, "niv": 5}, {"id": "L10", "seg": "norte", "x": 33.7, "y": 26.0, "n": 5, "niv": 5}], "paso": 3.4, "fondo": 1.1, "h": 6.0, "b5": [1.35, 2.7, 4.05, 5.4], "b4": [1.85, 3.7, 5.55], "dyn": {"x0": 10.1, "y0": 45.6, "dx": 24.3, "dy": 2.4, "modulos": 9, "ancho_mod": 2.7, "niveles": 4, "canales_nivel": 3}, "pilares": [[0, 0], [0, 10], [0, 20], [0, 30], [0, 40], [0, 50], [20, 0], [20, 10], [20, 20], [20, 30], [20, 40], [20, 50], [40, 0], [40, 10], [40, 20], [40, 30], [40, 40], [40, 50]], "puertas": [{"m": "O", "y0": 22.0, "y1": 26.0}, {"m": "E", "y0": 22.0, "y1": 26.0}]};
+  const D = {"W": 40.0, "L": 50.0, "zonas": [{"n": "Oficinas operativas", "x": 0.0, "y": 0.0, "dx": 10.1, "dy": 8.0, "c": "z-prep"}, {"n": "Staging y despacho", "x": 0.0, "y": 8.0, "dx": 10.1, "dy": 32.0, "c": "z-desp"}, {"n": "Preparación, insumos y embalajes", "x": 0.0, "y": 40.0, "dx": 10.1, "dy": 10.0, "c": "z-prep"}, {"n": "Pasillo peatonal", "x": 10.1, "y": 0.0, "dx": 24.7, "dy": 1.5, "c": "z-pas"}, {"n": "Almacenamiento C", "x": 10.1, "y": 1.5, "dx": 24.7, "dy": 10.2, "c": "z-c"}, {"n": "Almacenamiento B", "x": 10.1, "y": 11.7, "dx": 24.7, "dy": 10.3, "c": "z-b"}, {"n": "Pasillo central E-O", "x": 10.1, "y": 22.0, "dx": 24.7, "dy": 4.0, "c": "z-pas"}, {"n": "Almacenamiento A", "x": 10.1, "y": 26.0, "dx": 24.7, "dy": 17.1, "c": "z-a"}, {"n": "Zona picking", "x": 10.1, "y": 43.1, "dx": 24.7, "dy": 6.9, "c": "z-pick"}, {"n": "Devoluciones", "x": 34.8, "y": 0.0, "dx": 5.2, "dy": 8.0, "c": "z-dev"}, {"n": "Recepción", "x": 34.8, "y": 8.0, "dx": 5.2, "dy": 28.0, "c": "z-rec"}, {"n": "Control y calidad", "x": 34.8, "y": 36.0, "dx": 5.2, "dy": 8.0, "c": "z-qc"}, {"n": "Equipos y carga de baterías", "x": 34.8, "y": 44.0, "dx": 5.2, "dy": 6.0, "c": "z-serv"}], "lanes": [{"t": "staging", "x": 0.2, "y": 8.25, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 9.35, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 10.45, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 11.55, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 12.65, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 13.75, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 14.850000000000001, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 15.950000000000001, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 17.05, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 18.150000000000002, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 19.25, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 20.35, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 26.45, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 27.55, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 28.65, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 29.75, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 30.849999999999998, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 31.95, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 33.05, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 34.15, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 35.25, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 36.349999999999994, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 37.449999999999996, "dx": 3.6, "dy": 1.0}, {"t": "staging", "x": 0.2, "y": 38.55, "dx": 3.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 8.25, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 9.35, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 10.45, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 11.55, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 12.65, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 13.75, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 14.850000000000001, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 15.950000000000001, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 17.05, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 18.150000000000002, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 19.25, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 20.35, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 26.45, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 27.55, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 28.65, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 29.75, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 30.849999999999998, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 31.95, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 33.05, "dx": 2.6, "dy": 1.0}, {"t": "recepcion", "x": 37.3, "y": 34.15, "dx": 2.6, "dy": 1.0}], "racks": [{"id": "L1", "seg": "sur", "x": 10.1, "y": 1.5, "n": 6, "niv": 5}, {"id": "L1", "seg": "norte", "x": 10.1, "y": 26.0, "n": 5, "niv": 5}, {"id": "L2", "seg": "sur", "x": 13.7, "y": 1.5, "n": 6, "niv": 4}, {"id": "L2", "seg": "norte", "x": 13.7, "y": 26.0, "n": 5, "niv": 4}, {"id": "L3", "seg": "sur", "x": 15.0, "y": 1.5, "n": 6, "niv": 4}, {"id": "L3", "seg": "norte", "x": 15.0, "y": 26.0, "n": 5, "niv": 4}, {"id": "L4", "seg": "sur", "x": 18.6, "y": 1.5, "n": 6, "niv": 4}, {"id": "L4", "seg": "norte", "x": 18.6, "y": 26.0, "n": 5, "niv": 4}, {"id": "L5", "seg": "sur", "x": 20.3, "y": 1.5, "n": 6, "niv": 4}, {"id": "L5", "seg": "norte", "x": 20.3, "y": 26.0, "n": 5, "niv": 4}, {"id": "L6", "seg": "sur", "x": 23.9, "y": 1.5, "n": 6, "niv": 4}, {"id": "L6", "seg": "norte", "x": 23.9, "y": 26.0, "n": 5, "niv": 4}, {"id": "L7", "seg": "sur", "x": 25.2, "y": 1.5, "n": 6, "niv": 4}, {"id": "L7", "seg": "norte", "x": 25.2, "y": 26.0, "n": 5, "niv": 4}, {"id": "L8", "seg": "sur", "x": 28.8, "y": 1.5, "n": 6, "niv": 5}, {"id": "L8", "seg": "norte", "x": 28.8, "y": 26.0, "n": 5, "niv": 5}, {"id": "L9", "seg": "sur", "x": 30.1, "y": 1.5, "n": 6, "niv": 5}, {"id": "L9", "seg": "norte", "x": 30.1, "y": 26.0, "n": 5, "niv": 5}, {"id": "L10", "seg": "sur", "x": 33.7, "y": 1.5, "n": 6, "niv": 5}, {"id": "L10", "seg": "norte", "x": 33.7, "y": 26.0, "n": 5, "niv": 5}], "paso": 3.4, "fondo": 1.1, "h": 6.0, "b5": [1.35, 2.7, 4.05, 5.4], "b4": [1.85, 3.7, 5.55], "dyn": {"x0": 10.1, "y0": 45.6, "dx": 24.3, "dy": 2.4, "modulos": 9, "ancho_mod": 2.7, "niveles": 4, "canales_nivel": 3}, "pilares": [[0, 0], [0, 10], [0, 20], [0, 30], [0, 40], [0, 50], [20, 0], [20, 10], [20, 20], [20, 30], [20, 40], [20, 50], [40, 0], [40, 10], [40, 20], [40, 30], [40, 40], [40, 50]], "puertas": [{"m": "O", "y0": 22.0, "y1": 26.0}, {"m": "E", "y0": 22.0, "y1": 26.0}]};
   const host = document.getElementById('v3d'), msg = document.getElementById('v3d-msg');
   if (!window.THREE || !THREE.OrbitControls) { msg.textContent = 'No se pudo cargar el visor 3D en este navegador.'; return; }
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -542,7 +552,7 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
     list.forEach((p, i) => { place(p); dummy.updateMatrix(); im.setMatrixAt(i, dummy.matrix); }); scene.add(im); return im; };
   const mPost = mat(col('--steel')); themed.push([mPost, '--steel']);
   inst(new THREE.BoxGeometry(0.08, D.h, 0.08), mPost, posts, p => { const [x, z] = P(p[0], p[1]); dummy.position.set(x, D.h / 2, z); dummy.scale.set(1, 1, 1); });
-  const mBeam = mat(col('--accent')); themed.push([mBeam, '--accent']);
+  const mBeam = mat(col('--beam')); themed.push([mBeam, '--beam']);
   inst(new THREE.BoxGeometry(0.06, 0.12, D.paso - 0.1), mBeam, beams, p => { const [x, z] = P(p[0], p[1]); dummy.position.set(x, p[2], z); });
   const mPal5 = mat(new THREE.Color('#C9A46A')), mPal4 = mat(new THREE.Color('#8FA3B8'));
   const palGeo = new THREE.BoxGeometry(1.15, 1, 0.98);
