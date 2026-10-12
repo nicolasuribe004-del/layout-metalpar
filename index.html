@@ -93,7 +93,7 @@ tr.total td { font-weight: 600; border-top: 2px solid var(--ink); }
 .ok { background: color-mix(in srgb, #2E8B57 18%, transparent); color: var(--ink); }
 .bad { background: color-mix(in srgb, #C0392B 20%, transparent); color: var(--ink); }
 .note { font-size: 13.5px; color: var(--muted); max-width: 75ch; margin: 10px 0 0; }
-.v3d { position: relative; height: min(70vh, 560px); min-height: 360px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.v3d { position: relative; height: min(82vh, 760px); min-height: 420px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
 .v3d canvas { display: block; width: 100%; height: 100%; touch-action: none; }
 .v3d-bar { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; flex-wrap: wrap; gap: 6px; z-index: 2; }
 .v3d-bar button, .v3d-bar label { font: 500 13px/1 var(--f-body); background: var(--surface); color: var(--ink); border: 1px solid var(--line);
@@ -101,6 +101,13 @@ tr.total td { font-weight: 600; border-top: 2px solid var(--ink); }
 .v3d-bar button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .v3d-bar button:focus-visible, .v3d-bar input:focus-visible { outline: 2px solid var(--steel); outline-offset: 2px; }
 .v3d-msg { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 14px; }
+.v3d:fullscreen { height: 100vh; border-radius: 0; border: none; }
+.v3d-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+.v3d-lbl { position: absolute; transform: translate(-50%, -50%); font: 600 12px/1.2 var(--f-body); color: var(--ink); white-space: nowrap;
+  background: color-mix(in srgb, var(--surface) 88%, transparent); border: 1px solid var(--line); border-radius: 3px; padding: 2px 6px; }
+.v3d-lbl.big { font: 700 13px/1.2 var(--f-display); }
+.v3d-lbl.door { font: 700 12px/1.2 var(--f-display); color: var(--steel); }
+.v3d-lbl.sm { font: 600 10.5px/1 var(--f-mono); padding: 1px 4px; }
 footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
 </style>
 </head>
@@ -433,10 +440,12 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
       <button type="button" id="b-pas">Pasillo de racks</button>
       <label><input type="checkbox" id="c-pal" checked> Pallets</label>
       <label><input type="checkbox" id="c-mur" checked> Muros</label>
+      <label><input type="checkbox" id="c-lbl" checked> Nombres</label>
+      <button type="button" id="b-full">Pantalla completa</button>
     </div>
     <div class="v3d-msg" id="v3d-msg">Cargando vista 3D…</div>
   </div>
-  <p class="hint">Arrastra para girar, rueda o pellizco para acercar, clic derecho (o dos dedos) para desplazar. Cada pallet ocupa una posición real del rack.</p>
+  <p class="hint">Arrastra para girar, rueda o pellizco para acercar, clic derecho (o dos dedos) para desplazar. Cada pallet ocupa una posición real del rack. Usa “Nombres” para mostrar u ocultar las zonas y “Pantalla completa” para verlo en grande.</p>
 </section>
 
 <header>
@@ -577,11 +586,11 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
 
   const views = { aerea: [[-34, 46, 52], [0, 0, 0]], rec: [[D.W / 2 + 14, 6, 1], [-6, 2, 1]], pas: [P(20, -6).concat([]), null] };
   const setView = k => {
-    if (k === 'aerea') { cam.position.set(-34, 46, 52); ctl.target.set(0, 0, 0); }
+    if (k === 'aerea') { const d = Math.max(1, 1.45 / cam.aspect); cam.position.set(-25 * d, 38 * d, 37 * d); ctl.target.set(0, 0, 0); }
     if (k === 'rec') { const [x, z] = P(D.W + 10, 24); cam.position.set(x, 5, z); const [tx, tz] = P(20, 24); ctl.target.set(tx, 1.5, tz); }
     if (k === 'pas') { const [x, z] = P(17.35, 0.6); cam.position.set(x, 1.7, z); const [tx, tz] = P(17.35, 20); ctl.target.set(tx, 2.2, tz); }
     ctl.update();
-    document.querySelectorAll('.v3d-bar button').forEach(b => b.classList.toggle('on', b.id === 'b-' + k));
+    document.querySelectorAll('.v3d-bar button:not(#b-full)').forEach(b => b.classList.toggle('on', b.id === 'b-' + k));
   };
   document.getElementById('b-aerea').onclick = () => setView('aerea');
   document.getElementById('b-rec').onclick = () => setView('rec');
@@ -594,7 +603,32 @@ footer { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; 
         new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] }); } catch (e) {}
   const resize = () => { const w = host.clientWidth, h = host.clientHeight; renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); };
   new ResizeObserver(resize).observe(host); resize(); setView('aerea');
-  const loop = () => { ctl.update(); renderer.render(scene, cam); requestAnimationFrame(loop); }; loop();
+  // nombres de zonas sobre la vista 3D
+  const lblBox = document.createElement('div'); lblBox.className = 'v3d-labels'; host.appendChild(lblBox);
+  const labels = [];
+  const addLbl = (t, x, y, h, cls) => { const el = document.createElement('span'); el.className = 'v3d-lbl' + (cls ? ' ' + cls : '');
+    el.textContent = t; lblBox.appendChild(el); const [px, pz] = P(x, y); labels.push({ el, v: new THREE.Vector3(px, h, pz) }); };
+  const nombre = { 'Zona picking': 'Zona de picking', 'Pasillo central E-O': 'Pasillo central', 'Preparación, insumos y embalajes': 'Preparación y embalaje', 'Equipos y carga de baterías': 'Equipos y baterías' };
+  D.zonas.forEach(z => { const alm = z.n.indexOf('Almacenamiento') === 0;
+    addLbl(nombre[z.n] || z.n, z.x + z.dx / 2, z.y + z.dy / 2, alm ? D.h + 1.2 : (z.n === 'Zona picking' ? 3 : 0.6), alm ? 'big' : ''); });
+  addLbl('Puerta este · Recepción', D.W + 3.5, 24, 1.2, 'door');
+  addLbl('Puerta oeste · Despacho', -3.5, 24, 1.2, 'door');
+  D.racks.filter(r => r.seg === 'norte').forEach(r => { addLbl(r.id, r.x + D.fondo / 2, r.y + r.n * D.paso + 0.4, D.h + 0.35, 'sm'); labels[labels.length - 1].near = true; });
+  let showLbl = true;
+  document.getElementById('c-lbl').onchange = e => { showLbl = e.target.checked; };
+  const tmp = new THREE.Vector3();
+  const placeLabels = () => { const w = host.clientWidth, h = host.clientHeight, cerca = cam.position.distanceTo(ctl.target) < 48;
+    labels.forEach(l => { tmp.copy(l.v).project(cam);
+      const vis = showLbl && (!l.near || cerca) && tmp.z > -1 && tmp.z < 1 && Math.abs(tmp.x) < 1.05 && Math.abs(tmp.y) < 1.05;
+      l.el.style.display = vis ? '' : 'none';
+      if (vis) { l.el.style.left = ((tmp.x + 1) / 2 * w).toFixed(1) + 'px'; l.el.style.top = ((1 - tmp.y) / 2 * h).toFixed(1) + 'px'; } }); };
+  // pantalla completa
+  const fb = document.getElementById('b-full');
+  if (!host.requestFullscreen) { fb.hidden = true; }
+  else { fb.onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else host.requestFullscreen().catch(() => {}); };
+    document.addEventListener('fullscreenchange', () => { const on = document.fullscreenElement === host;
+      fb.textContent = on ? 'Salir de pantalla completa' : 'Pantalla completa'; fb.classList.toggle('on', on); }); }
+  const loop = () => { ctl.update(); renderer.render(scene, cam); placeLabels(); requestAnimationFrame(loop); }; loop();
 })();
 (() => {
   const box = document.getElementById('planbox'), tip = document.getElementById('tip');
